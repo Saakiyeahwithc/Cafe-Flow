@@ -3,28 +3,39 @@ import {
   ShoppingCart,
   Menu,
   Home,
-  DollarSign,
+  Coins,
   Package,
   UserCog,
 } from "lucide-react"
 import coffee from './assets/coffee.jpg'
+import { useAuth } from "./AuthContext"
 
-function Testing() {
+function Sidebar() {
+  const {role}=useAuth();
+  const isAdmin = role === "admin";
   const activeTab = "dashboard"; // temporary default (remove later or replace with state)
 
   {/*const onTabChange = (id) => {
     console.log("Tab clicked:", id);
   };*/}
 
-  const menuItems = [
+  const adminMenuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "orders", label: "Orders", icon: ShoppingCart },
     { id: "menu", label: "Menu", icon: Menu },
     { id: "tables", label: "Tables", icon: Home },
-    { id: "finance", label: "Finance", icon: DollarSign },
+    { id: "finance", label: "Finance", icon: Coins },
     { id: "inventory", label: "Inventory", icon: Package },
     { id: "staff", label: "Staff", icon: UserCog },
   ];
+
+  const userMenuItems = [
+    { id: "orders", label: "Orders", icon: ShoppingCart },
+    { id: "menu", label: "Menu", icon: Menu },
+    { id: "tables", label: "Tables", icon: Home },
+  ];
+
+  const menuItems = isAdmin ? adminMenuItems : userMenuItems;
 
   return (
     <div className="w-64 bg-white h-screen border-r border-gray-200 flex flex-col">
@@ -35,8 +46,8 @@ function Testing() {
         </div>
 
         <div>
-          <h2 className="text-red-500">Cafe Manager</h2>
-          <p className="text-gray-400 text-xs">Welcome back</p>
+          <h2 className="text-[#4B2E2A] text-xl font-medium ">Cafe Manager</h2>
+          <p className="text-[#6A4A45] text-xs p-0.5 font-medium ">Welcome back</p>
         </div>
       </div>
 
@@ -50,10 +61,10 @@ function Testing() {
             <button
               key={item.id}
               onClick={() => onTabChange(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+              className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
                 isActive
-                  ? "bg-red-50 text-red-500"
-                  : "text-gray-600 hover:bg-gray-50"
+                  ? "bg-[#F5E6D3] font-medium text-[#4B2E2A]"
+                  : "text-[#6A4A45] font-medium hover:bg-[#fff4e9]"
               }`}
             >
               <Icon className="w-5 h-5" />
@@ -68,4 +79,4 @@ function Testing() {
   );
 }
 
-export default Testing;
+export default Sidebar;

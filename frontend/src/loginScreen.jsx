@@ -15,12 +15,12 @@ function LoginScreen()
   const handleLogin=()=>{
     if (username === "admin" && password === "123") {
       login("admin");
-      navigate("/dashboard");
+      navigate("/sidebar");
     } 
     
     else if (username === "user" && password === "456") {
       login("user");
-      navigate("/dashboard");
+      navigate("/sidebar");
     } 
     
     else {
