@@ -1,18 +1,29 @@
 import { Routes, Route } from 'react-router-dom'
 import Login from './login/selectRole.jsx'
 import LoginScreen from './login/loginScreen.jsx'
-import Sidebar from './sidebar.jsx'
+import Sidebar from './Components/sidebar.jsx'
+import Header from './Components/header.jsx'
 
 function App() {
-  return (
-    <>
-      <Routes>
+ return (
+    <Routes>
+      {/* Select role screen */}
       <Route path="/" element={<Login />} />
+
+      {/* Login screen */}
       <Route path="/login" element={<LoginScreen />} />
-      <Route path="/sidebar" element={<Sidebar />} />
+
+      {/* Dashboard (Sidebar + Header together) */}
+      <Route
+        path="/sidebar"
+        element={(
+            <div className="flex min-h-screen">
+              <Sidebar />
+              <Header />
+            </div>
+          )}
+      />
     </Routes>
-    {/*<Testing/>*/}
-    </>
   )
 }
 
