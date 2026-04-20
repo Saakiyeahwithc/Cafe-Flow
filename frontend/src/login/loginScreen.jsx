@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useAuth } from "./authContext"
+import { useAuth } from "../Context/authContext"
 import { useNavigate, useLocation } from "react-router-dom"
 import coffee from '../assets/coffee.jpg'
 
@@ -64,15 +64,15 @@ function LoginScreen() {
 
         <button
           onClick={handleLogin}
-          className="w-18 h-8 text-[15px] font-medium inline-flex items-center justify-center bg-[#4B2E2A] text-[#FFF8F1] rounded-lg mr-3 hover:bg-[#3B221F]"
-        >
+          className="w-18 h-8 text-[15px] font-medium inline-flex items-center justify-center 
+          bg-[#4B2E2A] text-[#FFF8F1] rounded-lg mr-3 hover:bg-[#3B221F]">
           Login
         </button>
 
         <button
           onClick={() => navigate("/")}
-          className="w-18 h-8 text-[15px] font-medium inline-flex items-center justify-center bg-[#4B2E2A] text-[#FFF8F1] rounded-lg hover:bg-[#3B221F]"
-        >
+          className="w-18 h-8 text-[15px] font-medium inline-flex items-center justify-center bg-[#4B2E2A] 
+          text-[#FFF8F1] rounded-lg hover:bg-[#3B221F]">
           Back
         </button>
 

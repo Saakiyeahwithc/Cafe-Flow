@@ -34,7 +34,9 @@ function Login() {
           User Login
         </button>
 
-        <button className="inline-flex w-18 h-8 text-[15px] font-medium items-center justify-center bg-transparent text-[#4B2E2A] rounded-lg hover:bg-[#F5E6D3] border-2 border-[#4B2E2A]">
+        <button 
+          onClick={()=>navigate("/signin")}
+          className="inline-flex w-18 h-8 text-[15px] font-medium items-center justify-center bg-transparent text-[#4B2E2A] rounded-lg hover:bg-[#F5E6D3] border-2 border-[#4B2E2A]">
           Sign in
         </button>
 
@@ -43,4 +45,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Login

@@ -7,17 +7,17 @@ import {
   Package,
   UserCog,
 } from "lucide-react"
-import coffee from './assets/coffee.jpg'
-import { useAuth } from "./login/authContext"
+import coffee from '../assets/coffee.jpg'
+import { useAuth } from "../Context/authContext"
 
 function Sidebar() {
   const {role}=useAuth();
   const isAdmin = role === "admin";
   const activeTab = "dashboard"; // temporary default (remove later or replace with state)
 
-  {/*const onTabChange = (id) => {
+const onTabChange = (id) => {
     console.log("Tab clicked:", id);
-  };*/}
+  };
 
   const adminMenuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
