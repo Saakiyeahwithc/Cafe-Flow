@@ -1,4 +1,4 @@
-import coffee from './assets/images/coffee.jpg'
+import coffee from '../../assets/images/coffee.jpg'
 import { useNavigate } from 'react-router-dom'
 
 function Login() {

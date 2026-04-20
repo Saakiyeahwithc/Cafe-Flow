@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/authContext.jsx";
 import { useNavigate, useLocation } from "react-router-dom";
-import coffee from "./assets/images/coffee.jpg";
+import coffee from "../../assets/images/coffee.jpg";
 
 function LoginScreen() {
   const { login } = useAuth();

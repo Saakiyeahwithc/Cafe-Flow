@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
-import Login from './login/selectRole.jsx'
-import LoginScreen from './login/loginScreen.jsx'
-import Sidebar from './Components/sidebar.jsx'
-import Header from './Components/header.jsx'
+import Login from './pages/auth/selectRole.jsx'
+import LoginScreen from './pages/auth/loginScreen.jsx'
+import Sidebar from './components/layouts/sidebar.jsx'
+import Header from './components/layouts/header.jsx'
 
 function App() {
  return (

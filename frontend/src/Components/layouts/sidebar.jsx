@@ -7,8 +7,8 @@ import {
   Package,
   UserCog,
 } from "lucide-react";
-import coffee from "./assets/images/coffee.jpg";
-import { useAuth } from "./context/authContext";
+import coffee from "../../assets/images/coffee.jpg";
+import { useAuth } from "../../context/authContext.jsx";
 
 function Sidebar() {
   const { role } = useAuth();
