@@ -2,13 +2,14 @@ import {
   LayoutDashboard,
   ShoppingCart,
   Menu,
-  Home,
+  BedSingle,
   Coins,
   Package,
   UserCog,
-} from "lucide-react";
-import coffee from "../../assets/images/coffee.jpg";
-import { useAuth } from "../../context/authContext.jsx";
+} from "lucide-react"
+import { MdTableRestaurant } from "react-icons/md"
+import coffee from "../../assets/images/coffee.jpg"
+import { useAuth } from "../../context/authContext.jsx"
 
 function Sidebar() {
   const { role } = useAuth();
@@ -23,7 +24,8 @@ function Sidebar() {
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "orders", label: "Orders", icon: ShoppingCart },
     { id: "menu", label: "Menu", icon: Menu },
-    { id: "tables", label: "Tables", icon: Home },
+    { id: "tables", label: "Tables", icon: MdTableRestaurant },
+    { id: "rooms", label: "Rooms", icon: BedSingle },
     { id: "finance", label: "Finance", icon: Coins },
     { id: "inventory", label: "Inventory", icon: Package },
     { id: "staff", label: "Staff", icon: UserCog },
@@ -32,7 +34,8 @@ function Sidebar() {
   const userMenuItems = [
     { id: "orders", label: "Orders", icon: ShoppingCart },
     { id: "menu", label: "Menu", icon: Menu },
-    { id: "tables", label: "Tables", icon: Home },
+    { id: "tables", label: "Tables", icon: MdTableRestaurant },
+    { id: "rooms", label: "Rooms", icon: BedSingle },
   ];
 
   const menuItems = isAdmin ? adminMenuItems : userMenuItems;

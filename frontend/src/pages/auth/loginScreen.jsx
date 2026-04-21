@@ -55,7 +55,7 @@ function LoginScreen() {
           type="text"
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
-          className="w-full h-10 mb-3 border border-solid border-[#4B2E2A] bg-white rounded-lg p-2"
+          className="w-full h-10 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
         />
 
         <p className="mb-1 font-medium text-start text-[#4B2E2A]">Password</p>
@@ -63,26 +63,29 @@ function LoginScreen() {
           type="password"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full h-10 mb-3 border border-solid border-[#4B2E2A] bg-white rounded-lg p-2"
+          className="w-full h-10 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
         />
+        
+        <p className="mb-5 font-medium text-sm text-red-600">{msg}</p>
 
-        <button
-          onClick={handleLogin}
-          className="w-18 h-8 text-[15px] font-medium inline-flex items-center justify-center 
-          bg-[#4B2E2A] text-[#FFF8F1] rounded-lg mr-3 hover:bg-[#3B221F]"
-        >
-          Login
-        </button>
+        <div className="flex items-center justify-center gap-3">
+          <button
+            onClick={handleLogin}
+            className="w-18 h-8 text-[15px] font-medium
+            bg-[#4B2E2A] text-[#FFF8F1] rounded-lg mr-3 hover:bg-[#3B221F]"
+          >
+            Login
+          </button>
 
-        <button
-          onClick={() => navigate("/")}
-          className="w-18 h-8 text-[15px] font-medium inline-flex items-center justify-center bg-[#4B2E2A] 
-          text-[#FFF8F1] rounded-lg hover:bg-[#3B221F]"
-        >
-          Back
-        </button>
+          <button
+            onClick={() => navigate("/")}
+            className="w-18 h-8 text-[15px] font-medium bg-[#4B2E2A] 
+            text-[#FFF8F1] rounded-lg hover:bg-[#3B221F]"
+          >
+            Back
+          </button>
+        </div>
 
-        <p className="mt-2 text-red-600">{msg}</p>
       </div>
     </div>
   );
