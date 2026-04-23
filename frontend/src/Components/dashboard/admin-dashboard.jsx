@@ -1,29 +1,25 @@
 import {
   LayoutDashboard,
   ShoppingCart,
-  Menu,
+  NotepadText,
   BedSingle,
   Coins,
   Package,
   UserCog,
-} from "lucide-react"
-import { MdTableRestaurant } from "react-icons/md"
-import coffee from "../../assets/images/coffee.jpg"
-import { useAuth } from "../../context/authContext.jsx"
+} from "lucide-react";
+import { MdTableRestaurant } from "react-icons/md";
+import coffee from "../../assets/images/coffee.jpg";
+import { useAuth } from "../../context/authContext.jsx";
+import { NavLink, Outlet } from "react-router-dom";
 
-function Sidebar() {
+function AdminDashboard() {
   const { role } = useAuth();
   const isAdmin = role === "admin";
-  const activeTab = "dashboard"; // temporary default (remove later or replace with state)
-
-  const onTabChange = (id) => {
-    console.log("Tab clicked:", id);
-  };
 
   const adminMenuItems = [
-    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { id: "overview", label: "Dashboard", icon: LayoutDashboard },
     { id: "orders", label: "Orders", icon: ShoppingCart },
-    { id: "menu", label: "Menu", icon: Menu },
+    { id: "menu", label: "Menu", icon: NotepadText },
     { id: "tables", label: "Tables", icon: MdTableRestaurant },
     { id: "rooms", label: "Rooms", icon: BedSingle },
     { id: "finance", label: "Finance", icon: Coins },
@@ -33,7 +29,7 @@ function Sidebar() {
 
   const userMenuItems = [
     { id: "orders", label: "Orders", icon: ShoppingCart },
-    { id: "menu", label: "Menu", icon: Menu },
+    { id: "menu", label: "Menu", icon: NotepadText },
     { id: "tables", label: "Tables", icon: MdTableRestaurant },
     { id: "rooms", label: "Rooms", icon: BedSingle },
   ];
@@ -42,8 +38,9 @@ function Sidebar() {
 
   return (
     <div className="w-64 bg-white h-screen border-r border-gray-200 flex flex-col">
+      {/* Header */}
       <div className="flex items-center gap-3 p-4 border-b border-gray-200">
-        <div className="inline-block w-16 h-16 mb-3 rounded-full overflow-hidden">
+        <div className="w-16 h-16 rounded-full overflow-hidden">
           <img
             src={coffee}
             alt="cafe logo"
@@ -52,36 +49,40 @@ function Sidebar() {
         </div>
 
         <div>
-          <h2 className="text-[#4B2E2A] text-xl font-medium ">Cafe Manager</h2>
-          <p className="text-[#6A4A45] text-xs p-0.5 font-medium ">
+          <h2 className="text-[#4B2E2A] text-xl font-medium">Cafe Manager</h2>
+          <p className="text-[#6A4A45] text-xs p-0.5 font-medium">
             Welcome back
           </p>
         </div>
       </div>
 
+      {/* Menu */}
       <div className="space-y-2 flex-1 p-4">
         {menuItems.map((item) => {
           const Icon = item.icon;
-          const isActive = activeTab === item.id;
 
           return (
-            <button
+            <NavLink
               key={item.id}
-              onClick={() => onTabChange(item.id)}
-              className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
-                isActive
-                  ? "bg-[#F5E6D3] font-medium text-[#4B2E2A]"
-                  : "text-[#6A4A45] font-medium hover:bg-[#fff4e9]"
-              }`}
+              to={`/dashboard/${item.id}`} // important
+              end={item.id === ""} // for dashboard root
+              className={({ isActive }) =>
+                `w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+                  isActive
+                    ? "bg-[#F5E6D3] font-medium text-[#4B2E2A]"
+                    : "text-[#6A4A45] font-medium hover:bg-[#fff4e9]"
+                }`
+              }
             >
               <Icon className="w-5 h-5" />
-              <p className="inline">{item.label}</p>
-            </button>
+              <span>{item.label}</span>
+            </NavLink>
           );
         })}
       </div>
     </div>
+    
   );
 }
 
-export default Sidebar;
+export default AdminDashboard;

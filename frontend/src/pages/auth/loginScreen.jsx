@@ -18,13 +18,13 @@ function LoginScreen() {
     // admin validation
     if (role === "admin" && username === "admin" && password === "123") {
       login("admin");
-      navigate("/sidebar");
+      navigate("/dashboard");
     }
 
     // user validation
     else if (role === "user" && username === "user" && password === "456") {
       login("user");
-      navigate("/sidebar");
+      navigate("/dashboard");
     }
 
     // invalid
@@ -65,7 +65,7 @@ function LoginScreen() {
           onChange={(e) => setPassword(e.target.value)}
           className="w-full h-10 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
         />
-        
+
         <p className="mb-5 font-medium text-sm text-red-600">{msg}</p>
 
         <div className="flex items-center justify-center gap-3">
@@ -85,7 +85,6 @@ function LoginScreen() {
             Back
           </button>
         </div>
-
       </div>
     </div>
   );
