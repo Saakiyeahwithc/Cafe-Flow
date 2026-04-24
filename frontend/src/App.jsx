@@ -10,6 +10,7 @@ import Overview from "./Components/dashboard/overview.jsx";
 import OrdersView from "./Components/dashboard/orders.jsx";
 import Tables from "./Components/dashboard/tables.jsx";
 import Rooms from "./Components/dashboard/room.jsx";
+import MenuView from "./Components/dashboard/menu"
 
 function App() {
   return (
@@ -23,11 +24,12 @@ function App() {
           <Route index element={<Overview />} />
           <Route path="overview" element={<Overview />} />
           <Route path="orders" element={<OrdersView />} />
+          <Route path="menu" element={<MenuView />} />
           <Route path="tables" element={<Tables />} />
           <Route path="rooms" element={<Rooms />} />
           <Route path="staff" element={<Staff />} />
         </Route>
-          {/* <Route path="menu" element={<Menu />} />
+          {/* 
           <Route path="tables" element={<Tables />} />
           <Route path="rooms" element={<Rooms />} /> */}
         
