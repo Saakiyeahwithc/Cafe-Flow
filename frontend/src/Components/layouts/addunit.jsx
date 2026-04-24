@@ -41,11 +41,11 @@ function AddUnit({ type, onClose, onConfirm }) {
 
           <button
             onClick={() => {
-              if (!capacity) {
-                setMsg("Must enter the number of capacity");
+              if (!capacity || !unitNumber) {
+                setMsg("Must enter all the fields");
                 return;
               }
-              onConfirm(type, unitNumber, capacity);
+              onConfirm(type.toLowerCase().trim(), unitNumber, capacity);
               setUnitNumber("");
               setCapacity("");
               setMsg("");

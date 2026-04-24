@@ -5,14 +5,14 @@ import StatusForm from "../layouts/statusform.jsx";
 import { useState, useContext } from "react";
 import { UnitContext } from "../../context/cafeContext.jsx";
 
-function Tables() {
+function Rooms() {
   const [showForm, setShowForm] = useState(false);
-  const [activeTable, setActiveTable] = useState(null);
+  const [activeRoom, setActiveRoom] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
   const { units, addUnit, updateUnit, deleteUnit } = useContext(UnitContext);
 
-  const handleAddTable = (type, number, capacity) => {
+  const handleAddRoom = (type, number, capacity) => {
     const success = addUnit({
     type: type,
     number: number,
@@ -20,25 +20,25 @@ function Tables() {
     });
 
     if (!success) {
-      setShowPopup(true);
+        setShowPopup(true);
     }
   };
 
-  //for filtering tables from units
-  const tables = units.filter((u) => u.type === "table");
+  //for filtering rooms from units
+  const rooms = units.filter((u) => u.type === "room");
 
   return (
     <div className="flex-1 min-h-screen p-8 bg-gray-50">
 
       {/* Header */}
-      <div className="flex justify-between mb-6 gap-3">
+      <div className="flex justify-between gap-3 mb-6">
         <div>
           <h1 className="text-xl md:text-2xl font-bold whitespace-nowrap">
-            Table Management
+            Room Management
           </h1>
 
           <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1 whitespace-nowrap">
-            Manage table availability and reservations  
+            Manage room availability and reservations  
           </p>      
         </div>
 
@@ -48,7 +48,7 @@ function Tables() {
             className="bg-blue-600 text-white px-2 py-2 rounded-lg flex items-center
             gap-1 hover:bg-blue-700">
             <Plus className="w-4 h-4 md:w-5 md:h-5" />
-            <p className="font-medium whitespace-nowrap text-sm md:text-[16px]">Add Table</p>
+            <p className="font-medium whitespace-nowrap text-sm md:text-[16px]">Add Room</p>
           </button>
         </div>
       </div>
@@ -56,55 +56,55 @@ function Tables() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white p-4 rounded-lg w-full shadow-sm font-medium">
-          <p className="text-gray-600 text-sm mb-1 ">Total Tables</p>
-          <p className="text-gray-900">{tables.length}</p>
+          <p className="text-gray-600 text-sm mb-1 ">Total Rooms</p>
+          <p className="text-gray-900">{rooms.length}</p>
         </div>
 
         <div className="bg-green-50 p-4 rounded-lg w-full shadow-sm font-medium">
           <p className="text-green-700 text-sm mb-1">Available</p>
-          <p className="text-green-900">{tables.filter((t) => t.status === "Available").length}</p>
+          <p className="text-green-900">{rooms.filter((t) => t.status === "Available").length}</p>
         </div>
 
         <div className="bg-blue-50 p-4 rounded-lg w-full shadow-sm font-medium">
           <p className="text-blue-700 text-sm mb-1">Reserved</p>
-          <p className="text-blue-900">{tables.filter((t) => t.status === "Reserved").length}</p>
+          <p className="text-blue-900">{rooms.filter((t) => t.status === "Reserved").length}</p>
         </div>
 
         <div className="bg-red-50 p-4 rounded-lg w-full shadow-sm font-medium">
           <p className="text-red-700 text-sm mb-1">Occupied</p>
-          <p className="text-red-900">{tables.filter((t) => t.status === "Occupied").length}</p>
+          <p className="text-red-900">{rooms.filter((t) => t.status === "Occupied").length}</p>
         </div>
       </div>
 
-      {/* Table Info Form */}
+      {/* Room Info Form */}
       {showForm && (
         <AddUnit
-          type="table"
+          type="room"
           onClose={() => setShowForm(false)}
           onConfirm={(type, number, capacity) => {
-          handleAddTable(type, number, capacity);
+          handleAddRoom(type, number, capacity);
           setShowForm(false);
           }}
         />
       )}
 
       {/* Status Inquiry Form */}
-      {activeTable && (
+      {activeRoom && (
         <StatusForm
-          unit={activeTable}
-          onClose={() => setActiveTable(null)}
+          unit={activeRoom}
+          onClose={() => setActiveRoom(null)}
           onConfirm={(status, customerName) => {
-          updateUnit(activeTable.id, status, customerName);
-          setActiveTable(null);
+          updateUnit(activeRoom.id, status, customerName);
+          setActiveRoom(null);
           }}
         />
       )}
 
-      {/* Table List */}
+      {/* Room List */}
       <div className="bg-white rounded-lg p-8 shadow-sm">
         <div className="flex items-center gap-3 justify-between mb-12">
           <h3 className="font-bold text-[15px] md:text-[17px] whitespace-nowrap">
-            All tables
+            All rooms
           </h3>
 
           <div className="flex gap-2 md:gap-3">
@@ -126,30 +126,30 @@ function Tables() {
         </div>
 
         <div className="flex flex-wrap gap-5">
-          {tables.length === 0 ? (
+          {rooms.length === 0 ? (
             <p className="text-gray-500 w-full text-center p-3">
-              No tables added yet
+              No rooms added yet
             </p>
           ) : (
-            [...tables]
+            [...rooms]
             .sort((a, b) => a.number - b.number)
-            .map((table) => (
+            .map((room) => (
               <UnitCard
-                key={table.id}
-                unit={table}
-                onDelete={()=>deleteUnit(table.id)}
-                openStatusForm={() => setActiveTable(table)}
+                key={room.id}
+                unit={room}
+                onDelete={()=>deleteUnit(room.id)}
+                openStatusForm={() => setActiveRoom(room)}
               />
             ))
           )}
         </div>
       </div>
       
-      {showPopup && (
+       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
           <div className="bg-white p-5 rounded-xl shadow-lg text-center h-40 w-80 flex flex-col items-center justify-center">
             <p className="font-medium text-lg md:text-xl mb-4">
-              Table already exists
+              Room already exists
             </p>
             <button
               onClick={() => setShowPopup(false)}
@@ -165,4 +165,4 @@ function Tables() {
   );
 }
 
-export default Tables
+export default Rooms

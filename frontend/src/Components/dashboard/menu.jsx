@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Coffee, UtensilsCrossed, Plus, Minus, Trash2, X } from 'lucide-react';
-import { useCafe } from '../context/cafeContext.jsx' 
+import { useCafe } from '../../context/cafeContext' 
 
 
 function MenuView() {
