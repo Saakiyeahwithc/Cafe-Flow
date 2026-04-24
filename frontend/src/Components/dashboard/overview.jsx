@@ -2,13 +2,14 @@ import {
   TrendingUp,
   TrendingDown,
   DollarSign,
-  ShoppingCart,
   CreditCard,
   Users,
   Home,
   BedSingle,
   UserRoundCheck,
   UsersRound,
+  NotepadText,
+  KeySquare,
 } from "lucide-react";
 import MetricCard from "../layouts/metric.jsx";
 import ServiceItem from "../layouts/serviceItem.jsx";
@@ -20,89 +21,45 @@ function Overview() {
         
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-2xl font-bold"> Dashboard Overview</h1>
-          <p className="text-[15px] text-gray-400 font-medium mt-1">
+          <h1 className="text-xl md:text-2xl font-bold whitespace-nowrap"> 
+            Dashboard Overview
+          </h1>
+          <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1 whitespace-nowrap">
             Monitor your cafe performance
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+        <div className="grid grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
           <MetricCard
-            title="Sales"
+            title="Total Revenue"
             value="Rs 0"
-            change="No change"
             icon={TrendingUp}
-            color="blue"
+            color="purple"
           />
           <MetricCard
-            title="Purchase"
+            title="Net Earnings"
             value="Rs 0"
-            change="No change"
-            icon={ShoppingCart}
-            color="orange"
-          />
-          <MetricCard
-            title="Income"
-            value="Rs 0"
-            change="No change"
             icon={DollarSign}
             color="green"
           />
           <MetricCard
             title="Expenses"
             value="Rs 0"
-            change="No change"
             icon={CreditCard}
             color="red"
           />
           <MetricCard
-            title="Payment In"
-            value="Rs 0"
-            change="No change"
-            icon={TrendingUp}
-            color="teal"
+            title="Total Orders"
+            value="0"
+            icon={NotepadText}
+            color="orange"
           />
           <MetricCard
-            title="Payment Out"
-            value="Rs 0"
-            change="No change"
-            icon={TrendingDown}
-            color="purple"
+            title="Total Check-ins"
+            value="0"
+            icon={KeySquare}
+            color="teal"
           />
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-white rounded-xl p-6 shadow-sm">
-            <h3 className="mb-4">Sales Overview</h3>
-            <p className="text-gray-500 text-sm mb-4">
-              Track your sales throughout the day
-            </p>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm">
-            <h3 className="mb-4 font-medium">Summary</h3>
-            <div className="space-y-4">
-              <ServiceItem
-                label="Rooms available"
-                value=" 0"
-                icon={<BedSingle />}
-              />
-              <ServiceItem
-                label="Reservations made"
-                value=" 0"
-                icon={<UserRoundCheck />}
-              />
-              <ServiceItem
-                label="Tables available"
-                value=" 0"
-                icon={<MdTableRestaurant />}
-              />
-              <ServiceItem
-                label="Active Staffs"
-                value=" 0"
-                icon={<UsersRound />}
-              />
-            </div>
-          </div>
         </div>
     </div>
 

@@ -1,4 +1,5 @@
 import { X, UtensilsCrossed } from "lucide-react";
+import { BsFillDoorOpenFill } from "react-icons/bs";
 
 function UnitCard({ unit, onDelete, openStatusForm}) {
   const status = unit.status;
@@ -31,7 +32,11 @@ function UnitCard({ unit, onDelete, openStatusForm}) {
           {unit.customerName}
         </p>
 
-        <UtensilsCrossed className="w-6 h-6 text-white" />
+        {type === "room" ? (
+          <BsFillDoorOpenFill className="w-6 h-6 text-white" />
+        ) : (
+          <UtensilsCrossed className="w-6 h-6 text-white" />
+        )}
 
         <p className="text-white font-medium mt-1">
           {type === "room" ? "Room" : "Table"} {unit.number}
@@ -39,7 +44,7 @@ function UnitCard({ unit, onDelete, openStatusForm}) {
 
         <p className="text-gray-50 font-medium text-[14px]">
           {type === "room"
-            ? `${unit.capacity} guests`
+            ? `${unit.capacity} beds`
             : `${unit.capacity} seats`}
         </p>
 

@@ -24,17 +24,21 @@ export function UnitProvider({ children }) {
 
   // adding new unit (table or room)
   const addUnit = ({ type, number, capacity }) => {
+    const normalizedNumber = Number(number);
+    
     const exists = units.some(
-      (u) => u.type === type && u.number === number
+      (u) => u.type === type && u.number === normalizedNumber
     );
 
-    if (exists) return false;
+    if (exists) {
+      return false;
+    }
 
     const newUnit = {
       id: Date.now(),
       type: type,        // "table" | "room"
-      number: Number(number),      // table number or room number
-      capacity: Math.max(1, Number(capacity)),    // seats or guests
+      number: Number(number),      
+      capacity: Math.max(1, Number(capacity)),    // seats or beds
       customerName: "",
       status: "Available",
     };
