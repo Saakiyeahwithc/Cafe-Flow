@@ -92,54 +92,21 @@ export const ordersData = [
     time: "10:25 AM",
   },
 ];
-export const tablesData = [
-  { id: 1, number: 1, capacity: 2, isOccupied: false },
-  { id: 2, number: 2, capacity: 4, isOccupied: false },
-  { id: 3, number: 3, capacity: 4, isOccupied: true },
-  { id: 4, number: 4, capacity: 6, isOccupied: false },
-  { id: 5, number: 5, capacity: 2, isOccupied: false },
-  { id: 6, number: 6, capacity: 4, isOccupied: false },
-  { id: 7, number: 7, capacity: 8, isOccupied: true },
-  { id: 8, number: 8, capacity: 2, isOccupied: false },
-  { id: 9, number: 9, capacity: 4, isOccupied: false },
-  { id: 10, number: 10, capacity: 6, isOccupied: false },
-  { id: 11, number: 11, capacity: 4, isOccupied: false },
-  { id: 12, number: 12, capacity: 2, isOccupied: false },
+
+export const revenueData = [
+  { name: "Sun", date: "2026-04-19", Revenue: 1200 },
+  { name: "Mon", date: "2026-04-20", Revenue: 4300 },
+  { name: "Tue", date: "2026-04-21", Revenue: 2200 },
+  { name: "Wed", date: "2026-04-22", Revenue: 3550 },
+  { name: "Thu", date: "2026-04-23", Revenue: 1500 },
+  { name: "Fri", date: "2026-04-24", Revenue: 3000 },
+  { name: "Sat", date: "2026-04-25", Revenue: 4050 },
 ];
-export const staffData = [
-  {
-    id: 1,
-    name: "Raj Kumar",
-    role: "Manager",
-    salary: 45000,
-    username: "raj.kumar",
-  },
-  {
-    id: 2,
-    name: "Priya Sharma",
-    role: "Barista",
-    salary: 28000,
-    username: "priya.sharma",
-  },
-  {
-    id: 3,
-    name: "Anil Mehta",
-    role: "Chef",
-    salary: 35000,
-    username: "anil.mehta",
-  },
-  {
-    id: 4,
-    name: "Sunita Rao",
-    role: "Waiter",
-    salary: 22000,
-    username: "sunita.rao",
-  },
-  {
-    id: 5,
-    name: "Vikram Singh",
-    role: "Cashier",
-    salary: 25000,
-    username: "vikram.singh",
-  },
+
+export const orderData = [
+  { name: 'Food', value: 425 },
+  { name: 'Desserts', value: 185 },
+  { name: 'Coffee', value: 252 },
 ];
+
+export const COLORS = ['#D97706', '#FF6B6B', '#C68642'];

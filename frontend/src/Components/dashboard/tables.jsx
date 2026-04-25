@@ -56,23 +56,23 @@ function Tables() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white p-4 rounded-lg w-full shadow-sm font-medium">
-          <p className="text-gray-600 text-sm mb-1 ">Total Tables</p>
-          <p className="text-gray-900">{tables.length}</p>
+          <p className="text-gray-600 text-[17px] mb-1 ">Total Tables</p>
+          <p className="text-gray-900 text-[17px]">{tables.length}</p>
         </div>
 
         <div className="bg-green-50 p-4 rounded-lg w-full shadow-sm font-medium">
-          <p className="text-green-700 text-sm mb-1">Available</p>
-          <p className="text-green-900">{tables.filter((t) => t.status === "Available").length}</p>
+          <p className="text-green-700 text-[17px] mb-1">Available</p>
+          <p className="text-green-900 text-[17px]">{tables.filter((t) => t.status === "Available").length}</p>
         </div>
 
         <div className="bg-blue-50 p-4 rounded-lg w-full shadow-sm font-medium">
-          <p className="text-blue-700 text-sm mb-1">Reserved</p>
-          <p className="text-blue-900">{tables.filter((t) => t.status === "Reserved").length}</p>
+          <p className="text-blue-700 text-[17px] mb-1">Reserved</p>
+          <p className="text-blue-900 text-[17px]">{tables.filter((t) => t.status === "Reserved").length}</p>
         </div>
 
         <div className="bg-red-50 p-4 rounded-lg w-full shadow-sm font-medium">
-          <p className="text-red-700 text-sm mb-1">Occupied</p>
-          <p className="text-red-900">{tables.filter((t) => t.status === "Occupied").length}</p>
+          <p className="text-red-700 text-[17px] mb-1">Occupied</p>
+          <p className="text-red-900 text-[17px]">{tables.filter((t) => t.status === "Occupied").length}</p>
         </div>
       </div>
 
@@ -103,7 +103,7 @@ function Tables() {
       {/* Table List */}
       <div className="bg-white rounded-lg p-8 shadow-sm">
         <div className="flex items-center gap-3 justify-between mb-12">
-          <h3 className="font-bold text-[15px] md:text-[17px] whitespace-nowrap">
+          <h3 className="font-bold text-[17px] md:text-[19px] whitespace-nowrap">
             All tables
           </h3>
 

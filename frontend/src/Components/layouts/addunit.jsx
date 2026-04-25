@@ -19,6 +19,7 @@ function AddUnit({ type, onClose, onConfirm }) {
           onChange={(e) => setUnitNumber(e.target.value)}
           className="w-full border-2 p-2 mb-3 rounded-lg"
         />
+        
         <p className="font-medium mb-2 text-gray-600">{type === "room" ? "Number of beds" : "Seating Capacity"}</p>
 
         <input

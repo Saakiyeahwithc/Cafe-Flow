@@ -11,7 +11,7 @@ function Header() {
       <div className="bg-white border-b border-gray-200 h-22 px-8 py-4 flex items-center justify-between">
         <div className="flex flex-col gap-0.5">
           <h2 className="font-bold text-2xl">Welcome</h2>
-          <p className="text-gray-500 text-sm">Have a great day!</p>
+          <p className="text-gray-500 font-medium text-sm">Have a great day!</p>
         </div>
         <button
           onClick={() => {

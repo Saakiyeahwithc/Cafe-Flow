@@ -33,11 +33,11 @@ function Rooms() {
       {/* Header */}
       <div className="flex justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold whitespace-nowrap">
+          <h1 className="text-xl md:text-2xl font-bold">
             Room Management
           </h1>
 
-          <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1 whitespace-nowrap">
+          <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1">
             Manage room availability and reservations  
           </p>      
         </div>
@@ -48,7 +48,7 @@ function Rooms() {
             className="bg-blue-600 text-white px-2 py-2 rounded-lg flex items-center
             gap-1 hover:bg-blue-700">
             <Plus className="w-4 h-4 md:w-5 md:h-5" />
-            <p className="font-medium whitespace-nowrap text-sm md:text-[16px]">Add Room</p>
+            <p className="font-medium text-sm md:text-[16px]">Add Room</p>
           </button>
         </div>
       </div>
@@ -56,23 +56,23 @@ function Rooms() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white p-4 rounded-lg w-full shadow-sm font-medium">
-          <p className="text-gray-600 text-sm mb-1 ">Total Rooms</p>
-          <p className="text-gray-900">{rooms.length}</p>
+          <p className="text-gray-600 text-[17px] mb-1 ">Total Rooms</p>
+          <p className="text-gray-900 text-[17px]">{rooms.length}</p>
         </div>
 
         <div className="bg-green-50 p-4 rounded-lg w-full shadow-sm font-medium">
-          <p className="text-green-700 text-sm mb-1">Available</p>
-          <p className="text-green-900">{rooms.filter((t) => t.status === "Available").length}</p>
+          <p className="text-green-700 text-[17px] mb-1">Available</p>
+          <p className="text-green-900 text-[17px]">{rooms.filter((t) => t.status === "Available").length}</p>
         </div>
 
         <div className="bg-blue-50 p-4 rounded-lg w-full shadow-sm font-medium">
-          <p className="text-blue-700 text-sm mb-1">Reserved</p>
-          <p className="text-blue-900">{rooms.filter((t) => t.status === "Reserved").length}</p>
+          <p className="text-blue-700 text-[17px] mb-1">Reserved</p>
+          <p className="text-blue-900 text-[17px]">{rooms.filter((t) => t.status === "Reserved").length}</p>
         </div>
 
         <div className="bg-red-50 p-4 rounded-lg w-full shadow-sm font-medium">
-          <p className="text-red-700 text-sm mb-1">Occupied</p>
-          <p className="text-red-900">{rooms.filter((t) => t.status === "Occupied").length}</p>
+          <p className="text-red-700 text-[17px] mb-1">Occupied</p>
+          <p className="text-red-900 text-[17px]">{rooms.filter((t) => t.status === "Occupied").length}</p>
         </div>
       </div>
 
@@ -103,7 +103,7 @@ function Rooms() {
       {/* Room List */}
       <div className="bg-white rounded-lg p-8 shadow-sm">
         <div className="flex items-center gap-3 justify-between mb-12">
-          <h3 className="font-bold text-[15px] md:text-[17px] whitespace-nowrap">
+          <h3 className="font-bold text-[17px] md:text-[19px]">
             All rooms
           </h3>
 
