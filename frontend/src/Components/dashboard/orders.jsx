@@ -46,11 +46,11 @@ function OrdersView() {
 
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-xl md:text-2xl font-bold whitespace-nowrap">
+        <h1 className="text-xl md:text-2xl font-bold">
           Orders Management
         </h1>
         
-        <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1 whitespace-nowrap">
+        <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1">
           View and Manage all orders
         </p>
       </div>
@@ -58,18 +58,18 @@ function OrdersView() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-blue-50 p-4 rounded-lg font-medium shadow-sm">
-          <p className="text-blue-700 text-sm mb-1">Preparing</p>
-          <p className="text-blue-900">{activeOrders.length}</p>
+          <p className="text-blue-700 text-[17px] mb-1">Preparing</p>
+          <p className="text-blue-900 text-[17px]">{activeOrders.length}</p>
         </div>
 
         <div className="bg-red-50 p-4 rounded-lg font-medium shadow-sm">
-          <p className="text-red-700 text-sm mb-1">Cancelled</p>
-          <p className="text-red-900">{cancelledOrders.length}</p>
+          <p className="text-red-700 text-[17px] mb-1">Cancelled</p>
+          <p className="text-red-900 text-[17px]">{cancelledOrders.length}</p>
         </div>
         
         <div className="bg-green-50 p-4 rounded-lg font-medium shadow-sm">
-          <p className="text-green-700 text-sm mb-1">Completed</p>
-          <p className="text-green-900">{orders.filter(o => o.status === "completed").length}</p>
+          <p className="text-green-700 text-[17px] mb-1">Completed</p>
+          <p className="text-green-900 text-[17px]">{orders.filter(o => o.status === "completed").length}</p>
         </div>
       </div>
 
@@ -79,7 +79,7 @@ function OrdersView() {
           <ChefHat className="w-12 h-12 text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500">No active orders right now</p>
           <p className="text-gray-400 text-sm mt-1">
-            New order will appear here when customer places an order
+            New order will appear here when a customer places an order
           </p>
         </div>
       ) : (

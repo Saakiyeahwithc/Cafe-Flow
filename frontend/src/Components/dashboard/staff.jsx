@@ -16,25 +16,25 @@ return(
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-8">
           <div className="bg-white p-4 rounded-lg shadow-sm font-medium">
-            <p className="text-gray-600 text-sm mb-1 ">Total Staff</p>
-            {/* <p className="text-gray-900">{staff.length}</p> */}
+            <p className="text-gray-600 text-[16px] mb-2 ">Total Staff</p>
+            <p className="text-gray-900 text-[16px]">1</p>
           </div>
           
           <div className="bg-blue-50 p-4 rounded-lg shadow-sm font-medium">
-            <p className="text-blue-700 text-sm mb-1">Roles Filled</p>
-           {/*  <p className="text-blue-900">{new Set(staff.map(s => s.role)).size}</p> */}
+            <p className="text-blue-700 text-[16px] mb-2">Roles Filled</p>
+            <p className="text-blue-900 text-[16px]">1</p>
           </div>
           <div className="bg-orange-50 p-4 rounded-lg shadow-sm font-medium">
-            <p className="text-orange-700 text-sm mb-1">Monthly Payroll</p>
-            {/* <p className="text-orange-900">Rs {totalSalary.toLocaleString()}</p> */}
+            <p className="text-orange-700 text-[16px] mb-2">Monthly Payroll</p>
+            <p className="text-orange-900 text-[16px]">Rs 12500</p>
           </div>
         </div>
 
         {/* Staff Table */}
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
           <div className="p-6 border-b border-gray-100 flex items-center gap-2">
-            <UserCog className="w-4 h-4 md:w-5 md:h-5 text-red-500" />
-            <h3  className="font-bold text-[15px] md:text-[17px] whitespace-nowrap">
+            <UserCog className="w-4.5 h-4.5 md:w-5 md:h-5 text-red-500" />
+            <h3  className="font-bold text-[17px] md:text-[19px] whitespace-nowrap">
               Team Members
             </h3>
           </div>
@@ -72,16 +72,15 @@ return(
                 <tr className="border-b border-gray-100 hover:bg-gray-50">
                   <td className="px-6 py-3 text-gray-600 text-sm">1</td>
 
-                  {/* Allow wrapping instead of forcing overflow */}
-                  <td className="px-6 py-3 text-gray-600 text-sm whitespace-normal">
-                    Name
+                  <td className="px-6 py-3 text-gray-600 text-sm">
+                    Name 
                   </td>
 
-                  <td className="px-6 py-3 text-gray-600 text-sm whitespace-nowrap">
+                  <td className="px-6 py-3 text-gray-600 text-sm">
                     Manager
                   </td>
 
-                  <td className="px-6 py-3 text-gray-600 text-sm whitespace-nowrap">
+                  <td className="px-6 py-3 text-gray-600 text-sm">
                     12500
                   </td>
 
@@ -98,7 +97,7 @@ return(
         {/* Role breakdown */}
        {/*  {{staff.length > 0 && ( */}
           <div className="mt-6 bg-white rounded-xl shadow-sm p-6">
-            <h3 className="font-bold text-[15px] md:text-[17px] whitespace-nowrap mb-4">Role Breakdown</h3>
+            <h3 className="font-bold text-[17px] md:text-[19px] whitespace-nowrap mb-4">Role Breakdown</h3>
             <div className="flex flex-wrap gap-5">
               {/* {ROLES.filter(r => roleCounts[r] > 0).map(role => ( */}
                 <div /* key={role} */ className="bg-gray-100 rounded-lg flex flex-col items-center gap-5 p-4">
