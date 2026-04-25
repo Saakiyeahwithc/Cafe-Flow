@@ -1,26 +1,31 @@
-import { useState } from 'react';
-import { Coffee, UtensilsCrossed, Plus, Minus, Trash2, X } from 'lucide-react';
-import { useCafe } from '../../context/cafeContext' 
-
+import { useState } from "react";
+import { Coffee, UtensilsCrossed, Plus, Minus, Trash2, X } from "lucide-react";
+import { useCafe } from "../../context/cafeContext";
 
 function MenuView() {
-  const { menuItems, addMenuItem, removeMenuItem, toggleMenuItemAvailability, addOrder } = useCafe();
+  const {
+    menuItems,
+    addMenuItem,
+    removeMenuItem,
+    toggleMenuItemAvailability,
+    addOrder,
+  } = useCafe();
 
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [cart, setCart] = useState([]);
-  const [tableNumber, setTableNumber] = useState('');
-  const [customerName, setCustomerName] = useState('');
+  const [tableNumber, setTableNumber] = useState("");
+  const [customerName, setCustomerName] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [newItem, setNewItem] = useState({
-    name: '',
-    category: 'Coffee',
+    name: "",
+    category: "Coffee",
     price: 0,
   });
 
-  const categories = ['All', 'Coffee', 'Food', 'Dessert'];
+  const categories = ["All", "Coffee", "Food", "Dessert"];
 
   const filteredItems =
-    selectedCategory === 'All'
+    selectedCategory === "All"
       ? menuItems
       : menuItems.filter((item) => item.category === selectedCategory);
 
@@ -32,11 +37,14 @@ function MenuView() {
         cart.map((cartItem) =>
           cartItem.id === item.id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        )
+            : cartItem,
+        ),
       );
     } else {
-      setCart([...cart, { id: item.id, name: item.name, price: item.price, quantity: 1 }]);
+      setCart([
+        ...cart,
+        { id: item.id, name: item.name, price: item.price, quantity: 1 },
+      ]);
     }
   };
 
@@ -50,7 +58,7 @@ function MenuView() {
           }
           return item;
         })
-        .filter((item) => item.quantity > 0)
+        .filter((item) => item.quantity > 0),
     );
   };
 
@@ -64,15 +72,15 @@ function MenuView() {
 
   const handleFinalizeOrder = () => {
     if (cart.length === 0) {
-      alert('Please add items to the cart');
+      alert("Please add items to the cart");
       return;
     }
     if (!tableNumber) {
-      alert('Please enter table number');
+      alert("Please enter table number");
       return;
     }
     if (!customerName) {
-      alert('Please enter customer name');
+      alert("Please enter customer name");
       return;
     }
 
@@ -94,13 +102,13 @@ function MenuView() {
 
     alert(result.message);
     setCart([]);
-    setTableNumber('');
-    setCustomerName('');
+    setTableNumber("");
+    setCustomerName("");
   };
 
   const handleAddNewItem = () => {
     if (!newItem.name || newItem.price <= 0) {
-      alert('Please enter valid item details');
+      alert("Please enter valid item details");
       return;
     }
 
@@ -111,7 +119,7 @@ function MenuView() {
       available: true,
     });
 
-    setNewItem({ name: '', category: 'Coffee', price: 0 });
+    setNewItem({ name: "", category: "Coffee", price: 0 });
     setShowAddModal(false);
   };
 
@@ -142,8 +150,8 @@ function MenuView() {
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-lg ${
                     selectedCategory === category
-                      ? 'bg-red-500 text-white'
-                      : 'bg-white text-gray-700'
+                      ? "bg-red-500 text-white"
+                      : "bg-white text-gray-700"
                   }`}
                 >
                   {category}
@@ -153,11 +161,14 @@ function MenuView() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {filteredItems.map((item) => (
-                <div key={item.id} className="bg-white rounded-xl p-4 shadow-sm">
+                <div
+                  key={item.id}
+                  className="bg-white rounded-xl p-4 shadow-sm"
+                >
                   <div className="flex justify-between mb-3">
                     <div className="flex gap-3">
                       <div className="bg-red-50 p-2 rounded-lg">
-                        {item.category === 'Coffee' ? (
+                        {item.category === "Coffee" ? (
                           <Coffee className="w-5 h-5 text-red-500" />
                         ) : (
                           <UtensilsCrossed className="w-5 h-5 text-red-500" />
@@ -177,11 +188,20 @@ function MenuView() {
                   <div className="flex justify-between mb-3">
                     <span>Rs {item.price}</span>
                     <button onClick={() => toggleMenuItemAvailability(item.id)}>
-                      {item.available ? 'Available' : 'Unavailable'}
+                      {item.available ? "Available" : "Unavailable"}
                     </button>
                   </div>
 
-                  <button onClick={() => addToCart(item)} disabled={!item.available}>
+                  <button
+                    onClick={() => addToCart(item)}
+                    disabled={!item.available}
+                    className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                      item.available
+                        ? "bg-red-500 hover:bg-red-600 text-white"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    }`}
+                  >
+                    <Plus className="w-4 h-4" />
                     Add to Order
                   </button>
                 </div>
@@ -190,36 +210,98 @@ function MenuView() {
           </div>
 
           {/* RIGHT */}
-          <div>
-            <h3>Current Order</h3>
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-xl p-6 shadow-sm sticky top-6">
+              <h3 className="mb-4">Current Order</h3>
 
-            <input
-              placeholder="Table Number"
-              value={tableNumber}
-              onChange={(e) => setTableNumber(e.target.value)}
-            />
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-gray-700 text-sm mb-2">
+                    Table Number
+                  </label>
+                  <input
+                    type="text"
+                    value={tableNumber}
+                    onChange={(e) => setTableNumber(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    placeholder="Enter table number"
+                  />
+                </div>
 
-            <input
-              placeholder="Customer Name"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-            />
-
-            {cart.map((item) => (
-              <div key={item.id}>
-                {item.name} x {item.quantity}
-                <button onClick={() => updateQuantity(item.id, -1)}>
-                  <Minus />
-                </button>
-                <button onClick={() => updateQuantity(item.id, 1)}>
-                  <Plus />
-                </button>
+                <div>
+                  <label className="block text-gray-700 text-sm mb-2">
+                    Customer Name
+                  </label>
+                  <input
+                    type="text"
+                    value={customerName}
+                    onChange={(e) => setCustomerName(e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    placeholder="Enter customer name"
+                  />
+                </div>
               </div>
-            ))}
 
-            <p>Total: Rs {calculateTotal()}</p>
-
-            <button onClick={handleFinalizeOrder}>Finalize</button>
+              {cart.length === 0 ? (
+                <div className="text-center py-8 text-gray-400">
+                  <p>No items added yet</p>
+                </div>
+              ) : (
+                <>
+                  <div className="space-y-3 mb-6 max-h-64 overflow-y-auto">
+                    {cart.map((item) => (
+                      <div key={item.id} className="bg-gray-50 p-3 rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-gray-900">{item.name}</span>
+                          <button
+                            onClick={() => removeFromCart(item.id)}
+                            className="text-red-500 hover:text-red-600"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => updateQuantity(item.id, -1)}
+                              className="bg-white p-1 rounded hover:bg-gray-100"
+                            >
+                              <Minus className="w-4 h-4 text-gray-600" />
+                            </button>
+                            <span className="text-gray-700 px-2">
+                              {item.quantity}
+                            </span>
+                            <button
+                              onClick={() => updateQuantity(item.id, 1)}
+                              className="bg-white p-1 rounded hover:bg-gray-100"
+                            >
+                              <Plus className="w-4 h-4 text-gray-600" />
+                            </button>
+                          </div>
+                          <span className="text-gray-700">
+                            Rs {item.price * item.quantity}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="border-t border-gray-200 pt-4 mb-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-700">Total Amount</span>
+                      <span className="text-red-500">
+                        Rs {calculateTotal()}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleFinalizeOrder}
+                    className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg transition-colors"
+                  >
+                    Finalize Order
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
