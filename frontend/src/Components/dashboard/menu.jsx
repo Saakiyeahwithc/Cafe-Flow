@@ -285,6 +285,7 @@ function MenuView() {
                       </div>
                     ))}
                   </div>
+
                   <div className="border-t border-gray-200 pt-4 mb-4">
                     <div className="flex items-center justify-between">
                       <span className="text-gray-700">Total Amount</span>
@@ -293,6 +294,7 @@ function MenuView() {
                       </span>
                     </div>
                   </div>
+
                   <button
                     onClick={handleFinalizeOrder}
                     className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg transition-colors"
@@ -305,6 +307,57 @@ function MenuView() {
           </div>
         </div>
       </div>
+
+      {/* MODAL */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-xl w-80">
+            <div className="flex justify-between items-center mb-4">
+              <h3>Add New Item</h3>
+              <button onClick={() => setShowAddModal(false)}>
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <input
+              type="text"
+              placeholder="Item name"
+              value={newItem.name}
+              onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+              className="w-full mb-3 px-3 py-2 border rounded"
+            />
+
+            <select
+              value={newItem.category}
+              onChange={(e) =>
+                setNewItem({ ...newItem, category: e.target.value })
+              }
+              className="w-full mb-3 px-3 py-2 border rounded"
+            >
+              <option>Coffee</option>
+              <option>Food</option>
+              <option>Dessert</option>
+            </select>
+
+            <input
+              type="number"
+              placeholder="Price"
+              value={newItem.price}
+              onChange={(e) =>
+                setNewItem({ ...newItem, price: Number(e.target.value) })
+              }
+              className="w-full mb-4 px-3 py-2 border rounded"
+            />
+
+            <button
+              onClick={handleAddNewItem}
+              className="w-full bg-red-500 text-white py-2 rounded"
+            >
+              Add Item
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
