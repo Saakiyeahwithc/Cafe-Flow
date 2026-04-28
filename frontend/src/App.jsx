@@ -12,6 +12,8 @@ import Rooms from "./Components/dashboard/room.jsx";
 import Inventory from "./Components/dashboard/inventory.jsx";
 import Finance from "./Components/dashboard/finance.jsx";
 import MenuView from "./Components/dashboard/menu"
+import Reservations from "./Components/dashboard/reservations.jsx";
+import History from "./Components/dashboard/history.jsx";
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
           <Route path="staff" element={<Staff />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="finance" element={<Finance />} />
+          <Route path="reservations" element={<Reservations />}/>
+          <Route path="history" element={<History />}/>
         </Route>
           {/* 
           <Route path="tables" element={<Tables />} />

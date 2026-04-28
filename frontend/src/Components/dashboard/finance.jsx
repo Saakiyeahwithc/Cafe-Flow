@@ -113,7 +113,7 @@ function Finance() {
                 
                 <div className="p-6 border-b border-gray-100 flex items-center gap-2">
                     <ReceiptText className="w-4.5 h-4.5 md:w-5 md:h-5 text-red-500" />
-                    <h3  className="font-bold text-[17px] md:text-[19px] whitespace-nowrap">
+                    <h3  className="font-bold text-[17px] md:text-[19px]">
                         Payment Records
                     </h3>
                 </div>
@@ -133,7 +133,7 @@ function Finance() {
                             <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
                                 Customer
                             </th>
-                            <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm whitespace-nowrap">
+                            <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm ">
                                 Items
                             </th>
                             <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
@@ -148,7 +148,7 @@ function Finance() {
                             <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
                                 Payment
                             </th>
-                            <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm whitespace-nowrap">
+                            <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm ">
                                 Time
                             </th>
                             <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
@@ -251,7 +251,7 @@ function Finance() {
                             {record.paymentMethod}
                         </span>
                         </td>
-                        <td className="py-3 px-6 text-gray-500 text-sm whitespace-nowrap">{record.paidAt}</td>
+                        <td className="py-3 px-6 text-gray-500 text-sm ">{record.paidAt}</td>
                         <td className="py-3 px-6">
                         <button
                             onClick={() => setSelectedRecord(record)}

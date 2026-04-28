@@ -33,11 +33,11 @@ function Tables() {
       {/* Header */}
       <div className="flex justify-between mb-6 gap-3">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold whitespace-nowrap">
+          <h1 className="text-xl md:text-2xl font-bold">
             Table Management
           </h1>
 
-          <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1 whitespace-nowrap">
+          <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1">
             Manage table availability and reservations  
           </p>      
         </div>
@@ -45,10 +45,10 @@ function Tables() {
         <div className="flex items-center justify-center">
           <button
             onClick={() => setShowForm(true)}
-            className="bg-blue-600 text-white px-2 py-2 rounded-lg flex items-center
+            className="bg-blue-600 text-white px-3 py-2 rounded-lg flex items-center
             gap-1 hover:bg-blue-700">
-            <Plus className="w-4 h-4 md:w-5 md:h-5" />
-            <p className="font-medium whitespace-nowrap text-sm md:text-[16px]">Add Table</p>
+            <Plus className="w-5 h-5" />
+            <p className="font-medium text-sm md:text-[16px]">Add Table</p>
           </button>
         </div>
       </div>
@@ -101,9 +101,9 @@ function Tables() {
       )}
 
       {/* Table List */}
-      <div className="bg-white rounded-lg p-8 shadow-sm">
+      <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
         <div className="flex items-center gap-3 justify-between mb-12">
-          <h3 className="font-bold text-[17px] md:text-[19px] whitespace-nowrap">
+          <h3 className="font-bold text-[16px] md:text-[19px] ">
             All tables
           </h3>
 
@@ -127,7 +127,7 @@ function Tables() {
 
         <div className="flex flex-wrap gap-5">
           {tables.length === 0 ? (
-            <p className="text-gray-500 w-full text-center p-3">
+            <p className="text-gray-500 w-full text-center pb-3">
               No tables added yet
             </p>
           ) : (

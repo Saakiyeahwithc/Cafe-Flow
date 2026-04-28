@@ -41,7 +41,7 @@ function OrdersView() {
   };
 
   return (
-    <div className="flex-1 min-h-screen bg-gray-50 overflow-auto p-8">
+    <div className="flex-1 min-h-screen bg-gray-50 p-8">
 
       {/* Header */}
       <div className="mb-6">
@@ -55,7 +55,7 @@ function OrdersView() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
         <div className="bg-blue-50 p-4 rounded-lg font-medium shadow-sm">
           <p className="text-blue-700 text-[17px] mb-1">Preparing</p>
           <p className="text-blue-900 text-[17px]">{activeOrders.length}</p>
@@ -82,7 +82,7 @@ function OrdersView() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {activeOrders.map((order) => (
             <div
               key={order.id}
@@ -157,14 +157,6 @@ function OrdersView() {
                 </div>
               </div>
 
-              <div className="bg-orange-50 p-3 border-t border-orange-100">
-                <div className="flex items-center gap-2">
-                  <ChefHat className="w-4 h-4 text-orange-600" />
-                  <span className="text-orange-700 text-sm">
-                    Kitchen View Enabled
-                  </span>
-                </div>
-              </div>
             </div>
           ))}
         </div>

@@ -6,6 +6,8 @@ import {
   Coins,
   Package,
   UserCog,
+  BookMarked,
+  History,
 } from "lucide-react";
 import { MdTableRestaurant } from "react-icons/md";
 import coffee from "../../assets/images/coffee.jpg";
@@ -22,9 +24,11 @@ function AdminDashboard() {
     { id: "menu", label: "Menu", icon: NotepadText },
     { id: "tables", label: "Tables", icon: MdTableRestaurant },
     { id: "rooms", label: "Rooms", icon: BedSingle },
+    { id: "reservations", label: "Reservations", icon: BookMarked },
     { id: "finance", label: "Finance", icon: Coins },
-    { id: "inventory", label: "Inventory", icon: Package },
     { id: "staff", label: "Staff", icon: UserCog },
+    { id: "inventory", label: "Inventory", icon: Package },
+    { id: "history", label: "History", icon: History },
   ];
 
   const userMenuItems = [
@@ -32,6 +36,7 @@ function AdminDashboard() {
     { id: "menu", label: "Menu", icon: NotepadText },
     { id: "tables", label: "Tables", icon: MdTableRestaurant },
     { id: "rooms", label: "Rooms", icon: BedSingle },
+    { id: "reservations", label: "Reservations", icon: BookMarked },
     { id: "inventory", label: "Inventory", icon: Package },
   ];
 
@@ -50,7 +55,9 @@ function AdminDashboard() {
         </div>
 
         <div>
-          <h2 className="text-[#4B2E2A] text-[16px] md:text-xl font-semibold">Cafe Manager</h2>
+          <h2 className="text-[#4B2E2A] text-[17px] md:text-xl font-semibold">
+            Manager
+          </h2>
           <p className="text-[#6A4A45] text-xs md:text-sm p-0.5 font-medium">
             Welcome back
           </p>
@@ -70,8 +77,8 @@ function AdminDashboard() {
               className={({ isActive }) =>
                 `w-full flex items-center gap-3 p-3 rounded-lg transition ${
                   isActive
-                    ? "bg-[#F5E6D3] font-medium text-lg text-[#4B2E2A]"
-                    : "text-[#6A4A45] font-medium text-lg hover:bg-[#fff4e9]"
+                    ? "bg-[#F5E6D3] font-medium text-[16px]  text-[#4B2E2A]"
+                    : "text-[#6A4A45] font-medium text-[16px]  hover:bg-[#fff4e9]"
                 }`
               }
             >

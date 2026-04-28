@@ -37,7 +37,7 @@ function Overview() {
         </div>
 
         {/* Today's status */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
           <MetricCard
             title="Total Revenue"
             value="Rs 0"
@@ -80,14 +80,21 @@ function Overview() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 mb-8">
           {/* graph */}
-          <div className="bg-white rounded-lg shadow-sm p-6 ">
-            <div className="flex items-center justify-between mb-6 gap-1">
-              <h3 className="text-[15px] md:text-lg font-semibold text-slate-900">Weekly Revenue</h3>
-              <div className="flex items-center gap-1">
-                <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-purple-500"></div>
-                <p className="text-slate-600 text-sm md:text-[16px]">Revenue per day</p>
+          <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+            <div className="flex items-start justify-between mb-6 gap-1">
+              <div>
+                <h3 className="text-[15px] md:text-lg font-semibold text-slate-900">
+                  Weekly Revenue
+                </h3>
+                <p className="mb-4 text-sm md:text-[15px] text-gray-500">
+                  Track daily revenue throughout the week
+                </p>
+              </div>
+              <div className="flex items-center gap-1 pt-1 md:gap-2">
+                <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                <p className="text-slate-600 text-xs md:text-sm">Revenue per day</p>
               </div>
             </div>
             <ResponsiveContainer width="100%" height={280}>
@@ -129,23 +136,30 @@ function Overview() {
           </div>
 
           {/* Pie-chart */}
-          <div className="bg-white rounded-2xl shadow-md p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-[15px] md:text-lg font-semibold text-slate-900">Orders by Category</h3>
-              <div className="flex items-center gap-2 md:gap-4">
+          <div className="bg-white rounded-2xl shadow-md p-4 md:p-6">
+            <div className="flex items-start justify-between mb-1">
+              <div>
+                <h3 className="text-[14px] md:text-lg font-semibold text-slate-900">
+                  Menu Category Popularity
+                </h3>
+                <p className="mb-6 text-sm md:text-[15px] text-gray-500">
+                  Identify the categories customers prefer most
+                </p>
+              </div>
+              <div className="flex gap-2 md:gap-4 pt-2">
                 <div className="flex items-center gap-1">
                   <div className="w-3 h-3 rounded-sm bg-[#D97706]"></div>
-                  <span className="text-slate-600">Food</span>
+                  <span className="text-slate-600 text-xs md:text-sm">Food</span>
                 </div>
 
                 <div className="flex items-center gap-1">
                   <div className="w-3 h-3 rounded-sm bg-[#FF6B6B]"></div>
-                  <span className="text-slate-600">Dessert</span>
+                  <span className="text-slate-600 text-xs md:text-sm">Dessert</span>
                 </div>
 
                 <div className="flex items-center gap-1">
                   <div className="w-3 h-3 rounded-sm bg-[#C68642]"></div>
-                  <span className="text-slate-600">Coffee</span>
+                  <span className="text-slate-600 text-xs md:text-sm">Coffee</span>
                 </div>
               </div>
             </div>
@@ -200,7 +214,7 @@ function Overview() {
                   contentStyle={{
                     borderRadius: "10px",
                     border: "none",
-                    backgroundColor: "#1F2937",
+                    backgroundColor: "#2D3748",
                     fontWeight: 500,
                     boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
                   }}

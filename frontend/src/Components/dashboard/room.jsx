@@ -45,9 +45,9 @@ function Rooms() {
         <div className="flex items-center justify-center">
           <button
             onClick={() => setShowForm(true)}
-            className="bg-blue-600 text-white px-2 py-2 rounded-lg flex items-center
+            className="bg-blue-600 text-white px-3 py-2 rounded-lg flex items-center
             gap-1 hover:bg-blue-700">
-            <Plus className="w-4 h-4 md:w-5 md:h-5" />
+            <Plus className="w-5 h-5" />
             <p className="font-medium text-sm md:text-[16px]">Add Room</p>
           </button>
         </div>
@@ -101,9 +101,9 @@ function Rooms() {
       )}
 
       {/* Room List */}
-      <div className="bg-white rounded-lg p-8 shadow-sm">
+      <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
         <div className="flex items-center gap-3 justify-between mb-12">
-          <h3 className="font-bold text-[17px] md:text-[19px]">
+          <h3 className="font-bold text-[16px] md:text-[19px]">
             All rooms
           </h3>
 
@@ -127,7 +127,7 @@ function Rooms() {
 
         <div className="flex flex-wrap gap-5">
           {rooms.length === 0 ? (
-            <p className="text-gray-500 w-full text-center p-3">
+            <p className="text-gray-500 w-full text-center pb-3">
               No rooms added yet
             </p>
           ) : (

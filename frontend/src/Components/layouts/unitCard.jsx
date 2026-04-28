@@ -11,9 +11,10 @@ function UnitCard({ unit, onDelete, openStatusForm}) {
       {/* Delete button */}
       <button
         onClick={() => onDelete(unit.id)}
-        className="absolute -top-2 -right-2 z-10 bg-red-400 hover:bg-red-500 text-white 
-        rounded-full w-5 h-5 flex items-center justify-center 
-        opacity-0 group-hover:opacity-100 transition-opacity shadow-md"
+        className="absolute -top-2 -right-2 z-10 
+        w-6 h-6 rounded-full bg-gray-700 hover:bg-red-500 text-white
+        opacity-0 group-hover:opacity-100 transition-opacity shadow-md
+        grid place-items-center"
       >
         <X className="w-3 h-3" />
       </button>
@@ -21,7 +22,7 @@ function UnitCard({ unit, onDelete, openStatusForm}) {
       {/* Card */}
       <div 
         onClick={openStatusForm}
-        className={`w-29 h-40 rounded-lg flex flex-col items-center 
+        className={`w-29 h-40 aspect-square rounded-lg flex flex-col items-center 
         justify-center p-4 hover:scale-103 transition-all shadow-sm
         ${status === "Available" ? "bg-green-400" 
             : status === "Reserved" ? "bg-blue-400"
