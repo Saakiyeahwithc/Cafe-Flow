@@ -109,4 +109,4 @@ export const orderData = [
   { name: 'Coffee', value: 252 },
 ];
 
-export const COLORS = ['#D97706', '#FF6B6B', '#C68642'];
+export const COLORS = ['#F59E0B', '#FACC15', '#EAB676'];

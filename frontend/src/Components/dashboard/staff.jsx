@@ -50,19 +50,19 @@ return(
               <table className="min-w-full table-auto">
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
+                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm md:text-lg">
                       #
                     </th>
-                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
+                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm md:text-lg">
                       Name
                     </th>
-                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
+                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm md:text-lg">
                       Job title
                     </th>
-                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm ">
+                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm md:text-lg ">
                       Salary (Rs)
                     </th>
-                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
+                    <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm md:text-lg">
                       Action
                     </th>
                   </tr>
@@ -70,22 +70,22 @@ return(
 
                 <tbody>
                   <tr className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="px-6 py-3 text-gray-600 text-sm">1</td>
+                    <td className="px-6 py-3 text-gray-600 text-sm md:text-lg">1</td>
 
-                    <td className="px-6 py-3 text-gray-600 text-sm">
+                    <td className="px-6 py-3 text-gray-600 text-sm md:text-lg">
                       Name 
                     </td>
 
-                    <td className="px-6 py-3 text-gray-600 text-sm">
+                    <td className="px-6 py-3 text-gray-600 text-sm md:text-lg">
                       Manager
                     </td>
 
-                    <td className="px-6 py-3 text-gray-600 text-sm">
+                    <td className="px-6 py-3 text-gray-600 text-sm md:text-lg">
                       12500
                     </td>
 
                     <td className="px-6 py-3">
-                      <button className="bg-red-50 hover:bg-red-100 p-1 rounded text-red-400 hover:text-red-600">
+                      <button className="text-red-400 hover:text-red-500">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </td>
@@ -94,21 +94,23 @@ return(
               </table>
             </div>
         </div>
+        
         {/* Role breakdown */}
        {/*  {{staff.length > 0 && ( */}
-          <div className="mt-6 bg-white rounded-xl shadow-sm p-6">
-            <h3 className="font-bold text-[17px] md:text-[19px]  mb-4">Role Breakdown</h3>
+          <div className="mt-6 bg-white rounded-xl w-full xl:w-200 shadow-sm p-6">
+            <h3 className="font-bold text-[17px] md:text-[19px] mb-6">Role Breakdown</h3>
             <div className="flex flex-wrap gap-5">
               {/* {ROLES.filter(r => roleCounts[r] > 0).map(role => ( */}
-                <div /* key={role} */ className="bg-gray-100 rounded-lg flex flex-col items-center gap-5 p-4">
-                  <p className="text-gray-800 text-[15px] font-medium">Manager{/* {roleCounts[role]} */}</p>
-                  <p className="text-gray-600 font-medium text-sm">1{/* {role} */}</p>
+                <div /* key={role} */ className="bg-gray-100 rounded-lg flex flex-col items-center gap-5 px-6 py-8 ">
+                  <p className="text-gray-800 text-lg font-medium">Manager{/* {roleCounts[role]} */}</p>
+                  <p className="text-gray-600 font-medium text-lg">1{/* {role} */}</p>
                 </div>
              {/*  )
             )} */}
             </div>
           </div>
-{/* )}} */}
+        {/* )}} */}
+
   </div>
 )
 }

@@ -47,14 +47,6 @@ function Overview() {
             color="purple"
           />
           <MetricCard
-            title="Net Earnings"
-            value="Rs 0"
-            msg="Profit"
-            change="positive"
-            icon={DollarSign}
-            color="green"
-          />
-          <MetricCard
             title="Expenses"
             value="Rs 0"
             msg="Less expenses"
@@ -63,7 +55,15 @@ function Overview() {
             color="red"
           />
           <MetricCard
-            title="Total Orders"
+            title="Net Earnings"
+            value="Rs 0"
+            msg="Profit"
+            change="positive"
+            icon={DollarSign}
+            color="green"
+          />
+          <MetricCard
+            title="Completed Orders"
             value="0"
             msg="x pending orders"
             change="negative"
@@ -148,18 +148,18 @@ function Overview() {
               </div>
               <div className="flex gap-2 md:gap-4 pt-2">
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded-sm bg-[#D97706]"></div>
-                  <span className="text-slate-600 text-xs md:text-sm">Food</span>
+                  <div className="w-3 h-3 rounded-sm bg-[#F59E0B]"></div>
+                  <span className="text-[#0F172A] text-xs md:text-sm">Food</span>
                 </div>
 
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded-sm bg-[#FF6B6B]"></div>
-                  <span className="text-slate-600 text-xs md:text-sm">Dessert</span>
+                  <div className="w-3 h-3 rounded-sm bg-[#FACC15]"></div>
+                  <span className="text-[#0F172A] text-xs md:text-sm">Dessert</span>
                 </div>
 
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded-sm bg-[#C68642]"></div>
-                  <span className="text-slate-600 text-xs md:text-sm">Coffee</span>
+                  <div className="w-3 h-3 rounded-sm bg-[#EAB676]"></div>
+                  <span className="text-[#0F172A] text-xs md:text-sm">Coffee</span>
                 </div>
               </div>
             </div>
@@ -189,7 +189,7 @@ function Overview() {
                       <text
                         x={x}
                         y={y}
-                        fill="#1F2937" //text color
+                        fill="#0F172A" //text color
                         fontWeight="bold"   
                         fontSize={14}
                         textAnchor="middle"
@@ -214,7 +214,7 @@ function Overview() {
                   contentStyle={{
                     borderRadius: "10px",
                     border: "none",
-                    backgroundColor: "#2D3748",
+                    backgroundColor: "#0F172A",
                     fontWeight: 500,
                     boxShadow: "0 10px 25px rgba(0,0,0,0.12)",
                   }}

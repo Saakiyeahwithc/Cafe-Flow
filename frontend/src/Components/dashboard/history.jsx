@@ -1,4 +1,4 @@
-import { BookCheck, SlidersHorizontal, Minus, SquareCheck} from 'lucide-react'
+import { ClipboardClock, SlidersHorizontal, Minus, NotebookText} from 'lucide-react'
 
 function History(){
 return(
@@ -14,13 +14,13 @@ return(
           </p>
         </div>
 
-        {/* Table Reservations */}
+        {/* financial & operations history */}
         <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200 mb-6">
             <div className='flex justify-between p-6 border-b border-gray-100 '>
                 <div className="flex items-center gap-2">
-                    <BookCheck className="w-4.5 h-4.5 md:w-5 md:h-5 text-red-500" />
+                    <ClipboardClock className="w-4.5 h-4.5 md:w-5 md:h-5 text-red-500" />
                     <h3  className="font-bold text-[17px] md:text-[19px] ">
-                    Table Reservations
+                    Financial & Operations History
                     </h3>
                 </div>
 
@@ -35,25 +35,25 @@ return(
                 <thead>
                     <tr className="bg-gray-50 border-b border-gray-200">
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm">
-                            #TR
+                            #FID
                         </th>
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm">
-                            Table No.
+                            Date
                         </th>
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm">
-                            Customer Name
+                            Total Revenue (Rs)
                         </th>
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
-                            Reservation Date
+                            Expense (Rs)
                         </th>
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
-                            Start time
+                            Net Earning (Rs)
                         </th>
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
-                            End time
+                            Completed Orders
                         </th>
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
-                            Contact No.
+                            Total Check-ins
                         </th>
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
                             Action
@@ -68,34 +68,34 @@ return(
                         </td>
 
                         <td className="px-6 py-3 text-gray-600 text-sm">
-                            5
-                        </td>
-
-                        <td className="px-6 py-3 text-gray-600 text-sm">
-                            Name
-                        </td>
-
-                        <td className="px-6 py-3 text-gray-600 text-sm">
                             2026-04-28
                         </td>
 
                         <td className="px-6 py-3 text-gray-600 text-sm">
-                            7:00 pm
+                            1200
                         </td>
 
                         <td className="px-6 py-3 text-gray-600 text-sm">
-                            <Minus className="w-5 h-5"/>
+                            200
                         </td>
 
                         <td className="px-6 py-3 text-gray-600 text-sm">
-                            1111111111
+                            1000
+                        </td>
+
+                        <td className="px-6 py-3 text-gray-600 text-sm">
+                            13
+                        </td>
+
+                        <td className="px-6 py-3 text-gray-600 text-sm">
+                            18
                         </td>
                         
                         <td className="px-6 py-3 text-gray-600 text-sm">
                             <button className='flex items-center justify-center text-green-500 gap-1
-                            hover:bg-green-400 hover:text-white py-1 px-2 md:py-2 md:px-3 rounded-4xl'>
-                                <SquareCheck className='w-6 h-6 xl:w-5 xl:h-5'/>
-                                Free Table
+                            hover:bg-green-400 hover:text-white py-1 px-2 md:py-2 md:px-3 rounded-4xl text-[12px] xl:text-[14px]'>
+                                <NotebookText className='w-7 h-7 xl:w-5 xl:h-5'/>
+                                View Expense Detail
                             </button>
                         </td>
                     </tr>
@@ -103,6 +103,72 @@ return(
                 </table>
             </div>
         </div>
+
+        {/* menu category popularity */}
+        <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-slate-200">
+            <div className='flex justify-between p-6 border-b border-gray-100 '>
+                <div className="flex items-center gap-2">
+                    <ClipboardClock className="w-4.5 h-4.5 md:w-5 md:h-5 text-red-500" />
+                    <h3  className="font-bold text-[17px] md:text-[19px] ">
+                    Menu Category Popularity
+                    </h3>
+                </div>
+
+                <button className='flex items-center gap-1 text-gray-600 hover:text-black'>
+                    Filter
+                    <SlidersHorizontal className='w-5 h-5'/>
+                </button>
+            </div>
+
+            <div className="w-full max-h-130 overflow-auto">
+                <table className="min-w-full table-auto">
+                <thead>
+                    <tr className="bg-gray-50 border-b border-gray-200">
+                        <th className="px-6 py-3 text-left text-gray-600 font-medium text-[14.5px]">
+                            #MID
+                        </th>
+                        <th className="px-6 py-3 text-left text-gray-600 font-medium text-[14.5px]">
+                            Date
+                        </th>
+                        <th className="px-6 py-3 text-left text-gray-600 font-medium text-[14.5px]">
+                            Coffee orders
+                        </th>
+                        <th className="px-6 py-3 text-left text-gray-600 font-medium text-[14.5px] ">
+                            Food orders
+                        </th>
+                        <th className="px-6 py-3 text-left text-gray-600 font-medium text-[14.5px] ">
+                            Dessert orders
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr className="border-b border-gray-100 hover:bg-gray-50">
+                        <td className="px-6 py-3 text-gray-600 text-[14.5px]">
+                            1
+                        </td>
+
+                        <td className="px-6 py-3 text-gray-600 text-[14.5px]">
+                            2026-04-28
+                        </td>
+
+                        <td className="px-6 py-3 text-gray-600 text-[14.5px]">
+                            146
+                        </td>
+
+                        <td className="px-6 py-3 text-gray-600 text-[14.5px]">
+                            211
+                        </td>
+
+                        <td className="px-6 py-3 text-gray-600 text-[14.5px]">
+                            160
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 )
 }
