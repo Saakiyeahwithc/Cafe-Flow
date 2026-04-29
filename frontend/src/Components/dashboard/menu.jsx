@@ -1,7 +1,14 @@
-import { useState } from 'react'
-import { Coffee, Plus, Minus, Trash2, CircleX, CircleCheck, } from 'lucide-react'
-import { useCafe } from '../../context/cafeContext' 
-import { MdRoomService } from 'react-icons/md'
+import { useState } from "react";
+import {
+  Coffee,
+  Plus,
+  Minus,
+  Trash2,
+  CircleX,
+  CircleCheck,
+} from "lucide-react";
+import { useCafe } from "../../context/cafeContext";
+import { MdRoomService } from "react-icons/md";
 import { FaUtensilSpoon } from "react-icons/fa";
 import NewItemForm from '../layouts/newitemform';
 
@@ -120,20 +127,19 @@ function MenuView() {
       {/* Header */}
       <div className="flex justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-xl md:text-2xl font-bold">
-            Menu View
-          </h1>
+          <h1 className="text-xl md:text-2xl font-bold">Menu View</h1>
 
           <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1">
-            Create your perfect order  
-          </p>      
+            Create your perfect order
+          </p>
         </div>
 
         <div className="flex items-center justify-center">
           <button
             onClick={() => setShowAddModal(true)}
             className="bg-blue-600 text-white px-3 py-2 rounded-lg flex items-center
-            gap-1 hover:bg-blue-700">
+            gap-1 hover:bg-blue-700"
+          >
             <Plus className="w-5 h-5" />
             <p className="font-medium text-sm md:text-[16px]">Add New Item</p>
           </button>
@@ -149,8 +155,8 @@ function MenuView() {
               onClick={() => setSelectedCategory(category)}
               className={`px-3 py-2 rounded-lg font-medium text-[16px] ${
                 selectedCategory === category
-                  ? 'bg-red-500 text-white'
-                  : 'bg-white text-gray-700'
+                  ? "bg-red-500 text-white"
+                  : "bg-white text-gray-700"
               }`}
             >
               {category}
@@ -160,17 +166,20 @@ function MenuView() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-150 overflow-y-auto p-2">
           {filteredItems.map((item) => (
-            <div key={item.id} className="bg-white rounded-xl h-fit p-4 shadow-sm">
+            <div
+              key={item.id}
+              className="bg-white rounded-xl h-fit p-4 shadow-sm"
+            >
               <div className="flex justify-between mb-3">
                 <div className="flex gap-3">
                   <div className="bg-red-50 p-2 rounded-lg flex items-center justify-center">
-                    {item.category === 'Coffee' ? (
+                    {item.category === "Coffee" ? (
                       <Coffee className="w-5 h-5 text-red-500" />
-                    ) : item.category === 'Food'? (
+                    ) : item.category === "Food" ? (
                       <MdRoomService className="w-5 h-5 text-red-500" />
-                    ) : 
+                    ) : (
                       <FaUtensilSpoon className="w-5 h-5 text-red-500" />
-                    }
+                    )}
                   </div>
                   <div>
                     <h3>{item.name}</h3>
@@ -185,31 +194,32 @@ function MenuView() {
 
               <div className="flex justify-between mb-3">
                 <span>Rs {item.price}</span>
-  
-                <button 
+
+                <button
                   onClick={() => toggleMenuItemAvailability(item.id)}
                   className={`flex items-center gap-2 shadow-sm shadow-slate-300 rounded-2xl px-2.5 py-1.5
                   hover:bg-gray-50
-                    ${
-                    item.available?'text-green-500':'text-red-500'
-                  }`}
-                > 
+                    ${item.available ? "text-green-500" : "text-red-500"}`}
+                >
                   <div>
-                  {item.available ? (
-                    <CircleCheck className="w-5 h-5 text-green-500" />
-                  ) : (
-                    <CircleX className="w-5 h-5 text-red-500" />
-                  )}
+                    {item.available ? (
+                      <CircleCheck className="w-5 h-5 text-green-500" />
+                    ) : (
+                      <CircleX className="w-5 h-5 text-red-500" />
+                    )}
                   </div>
-                  {item.available ? 'Available' : 'Unavailable'}
+                  {item.available ? "Available" : "Unavailable"}
                 </button>
               </div>
 
-              <button onClick={() => addToCart(item)} disabled={!item.available}
-                className='bg-red-500 flex items-center justify-center gap-1 
-                rounded-lg px-3 py-1 text-slate-50 font-medium hover:bg-red-600'>
+              <button
+                onClick={() => addToCart(item)}
+                disabled={!item.available}
+                className="bg-red-500 flex items-center justify-center gap-1 
+                rounded-lg px-3 py-1 text-slate-50 font-medium hover:bg-red-600"
+              >
                 Add to Order
-                <Plus className='w-5 h-5'/>
+                <Plus className="w-5 h-5" />
               </button>
             </div>
           ))}
@@ -243,7 +253,7 @@ function MenuView() {
             {cart.map((item) => (
               <div key={item.id} className='mt-3 mb-3 flex items-center font-medium gap-8 text-[16.5px] justify-between text-gray-700'>
                 {item.name} x {item.quantity}
-                <div className='flex items-center gap-4'>
+                <div className="flex items-center gap-4">
                   <button onClick={() => updateQuantity(item.id, -1)}>
                     <Minus className='w-4.5 h-4.5'/>
                   </button>
