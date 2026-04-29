@@ -11,7 +11,7 @@ function LoginScreen() {
 
   const handleLogin = () => {
     // admin validation
-    if (username === "admin" && password === "password") {
+    if (username === "admin" && password.toLowerCase().trim() === "password") {
       navigate("/dashboard");
     }
 
@@ -63,7 +63,7 @@ function LoginScreen() {
 
         <button
           onClick={handleLogin}
-          className="w-18 h-8 text-[15px] font-medium
+          className="text-lg px-4 py-1.5 font-medium
           bg-[#4B2E2A] text-[#FFF8F1] rounded-lg hover:bg-[#3B221F]">
           Login
         </button>
@@ -72,7 +72,7 @@ function LoginScreen() {
           <p className="text-gray-600 font-medium">Don't have an account? Sign up</p>
           <button 
           onClick={()=>navigate("/signup")}
-          className="inline-flex w-18 h-8 text-[15px] font-medium items-center justify-center bg-transparent text-[#4B2E2A] rounded-lg hover:bg-[#F5E6D3] border-2 border-[#4B2E2A]">
+          className="inline-flex px-4 py-1.5 text-lg font-medium items-center justify-center bg-transparent text-[#4B2E2A] rounded-lg hover:bg-[#F5E6D3] border-2 border-[#4B2E2A]">
           Sign up
         </button>
         </div>
