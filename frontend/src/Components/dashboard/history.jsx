@@ -1,4 +1,4 @@
-import { ClipboardClock, SlidersHorizontal, Minus, NotebookText} from 'lucide-react'
+import { ClipboardClock, SlidersHorizontal, Minus} from 'lucide-react'
 
 function History(){
 return(
@@ -44,19 +44,10 @@ return(
                             Total Revenue (Rs)
                         </th>
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
-                            Expense (Rs)
-                        </th>
-                        <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
-                            Net Earning (Rs)
-                        </th>
-                        <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
                             Completed Orders
                         </th>
                         <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
-                            Total Check-ins
-                        </th>
-                        <th className="px-6 py-5 text-left text-gray-600 font-medium text-sm ">
-                            Action
+                            Total Check-outs
                         </th>
                     </tr>
                 </thead>
@@ -76,27 +67,11 @@ return(
                         </td>
 
                         <td className="px-6 py-3 text-gray-600 text-sm">
-                            200
-                        </td>
-
-                        <td className="px-6 py-3 text-gray-600 text-sm">
-                            1000
-                        </td>
-
-                        <td className="px-6 py-3 text-gray-600 text-sm">
                             13
                         </td>
 
                         <td className="px-6 py-3 text-gray-600 text-sm">
                             18
-                        </td>
-                        
-                        <td className="px-6 py-3 text-gray-600 text-sm">
-                            <button className='flex items-center justify-center text-green-500 gap-1
-                            hover:bg-green-400 hover:text-white py-1 px-2 md:py-2 md:px-3 rounded-4xl text-[12px] xl:text-[14px]'>
-                                <NotebookText className='w-7 h-7 xl:w-5 xl:h-5'/>
-                                View Expense Detail
-                            </button>
                         </td>
                     </tr>
                 </tbody>

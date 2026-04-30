@@ -3,6 +3,14 @@ import { Plus, Trash2, Phone, Mail, MapPin } from 'lucide-react';
 
 function Inventory() {
 
+    const [supplierName,setSupplierName]=useState("");
+    const [category,setCategory]=useState("");
+    const [contactNumber,setContactNumber]=useState("");
+    const [email, setEmail]=useState("");
+    const [location, setLocation]=useState("");
+    const [showForm,setShowForm]=useState(false);
+    const [msg,setMsg]=useState("");
+
     return(
         <div className="flex-1 min-h-screen p-8 bg-gray-50">
 
@@ -29,7 +37,7 @@ function Inventory() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
                 {/* {dealers.map((dealer) => ( */}
                 <div /* key={dealer.id}  */className="bg-white rounded-xl p-6 shadow-sm border border-slate-200">
                     <div className="flex items-start justify-between">
@@ -140,6 +148,80 @@ function Inventory() {
                 <p className="text-slate-500">No dealers added yet. Click "Add Dealer" to get started.</p>
                 </div>
             )} */}
+            {showForm && (
+                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+
+                    <div className="bg-white p-6 rounded-2xl w-90">
+                        <h2 className="text-xl font-bold mb-4">Add Supplier</h2>
+
+                        <div>
+                            <p className="font-medium ">Supplier Name:</p>
+                            <input
+                            type="text"
+                            placeholder="Eg: Ram Bahadur"
+                            className="border-2 p-2 mt-2 mb-3 rounded-lg w-full"
+                            value={supplierName}
+                            onChange={(e) => setSupplierName(e.target.value)}
+                            />
+
+                            <p className="font-medium ">Category:</p>
+                            <input
+                            type="text"
+                            placeholder="Eg: Fruits/ Meat/ Poultry..."
+                            className="border-2 p-2 mt-2 mb-3 rounded-lg w-full"
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                            />
+
+                            <p className="font-medium ">Contact Number:</p>
+                            <input
+                            type="tel"
+                            placeholder="9XXXXXXXXX"
+                            className="border-2 p-2 mt-2 mb-3 rounded-lg w-full"
+                            value={contactNumber}
+                            onChange={(e) => setContactNumber(e.target.value)}
+                            />
+
+                            <p className="font-medium ">Email Address:</p>
+                            <input
+                            type="email"
+                            placeholder="example@email.com"
+                            className="border-2 p-2 mt-2 mb-3 rounded-lg w-full"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            />
+
+                            <p className="font-medium ">Location:</p>
+                            <input
+                            type="text"
+                            placeholder="street, city"
+                            className="border-2 p-2 mt-2 mb-3 rounded-lg w-full"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                            />
+                        </div>
+                
+
+                        <p className="text-red-500 font-medium text-sm mt-2 mb-5">{msg}</p>
+
+                        <div className="flex justify-between items-center">
+                            <button
+                                onClick={()=>setShowForm(false)}
+                                className="bg-red-400 text-white font-medium rounded-xl 
+                                px-3 py-2 hover:bg-red-500">
+                                Cancel
+                            </button>
+
+                            <button
+                                onClick={()=>setShowForm(false)}
+                                className="px-3 py-2 bg-green-400 text-white font-medium 
+                                rounded-xl hover:bg-green-500">
+                                Confirm
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
             </div>
     );
 }

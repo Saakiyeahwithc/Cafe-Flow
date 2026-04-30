@@ -1,5 +1,8 @@
 import { Trash2, UserCog } from 'lucide-react';
+import { useState } from 'react';
 function Staff(){
+
+  const [salary,setSalary]=useState(0);
 return(
   <div className="flex-1 bg-gray-50 p-8 min-h-screen">
       
@@ -46,7 +49,7 @@ return(
               <p className="text-gray-400 text-sm mt-1">Use the Sign Up button on the login page to add employees.</p>
             </div>
           ) : ( */}
-            <div className="w-full max-h-130 overflow-auto">
+            <div className="w-full overflow-x-auto">
               <table className="min-w-full table-auto">
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200">
@@ -80,8 +83,12 @@ return(
                       Manager
                     </td>
 
-                    <td className="px-6 py-3 text-gray-600 text-sm md:text-lg">
-                      12500
+                    <td>
+                      <input
+                        type="number"
+                        value={salary}
+                        onChange={(e)=>setSalary(e.target.value)}
+                        className='w-full h-full px-6 py-3 text-gray-600 text-sm md:text-lg'/>
                     </td>
 
                     <td className="px-6 py-3">
@@ -94,23 +101,6 @@ return(
               </table>
             </div>
         </div>
-        
-        {/* Role breakdown */}
-       {/*  {{staff.length > 0 && ( */}
-          <div className="mt-6 bg-white rounded-xl w-full xl:w-200 shadow-sm p-6">
-            <h3 className="font-bold text-[17px] md:text-[19px] mb-6">Role Breakdown</h3>
-            <div className="flex flex-wrap gap-5">
-              {/* {ROLES.filter(r => roleCounts[r] > 0).map(role => ( */}
-                <div /* key={role} */ className="bg-gray-100 rounded-lg flex flex-col items-center gap-5 px-6 py-8 ">
-                  <p className="text-gray-800 text-lg font-medium">Manager{/* {roleCounts[role]} */}</p>
-                  <p className="text-gray-600 font-medium text-lg">1{/* {role} */}</p>
-                </div>
-             {/*  )
-            )} */}
-            </div>
-          </div>
-        {/* )}} */}
-
   </div>
 )
 }

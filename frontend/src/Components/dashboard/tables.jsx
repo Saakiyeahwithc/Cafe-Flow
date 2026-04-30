@@ -38,7 +38,7 @@ function Tables() {
           </h1>
 
           <p className="text-sm md:text-[15px] text-gray-400 font-medium mt-1">
-            Manage table availability and reservations  
+            Manage table availability
           </p>      
         </div>
 
@@ -54,7 +54,7 @@ function Tables() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
         <div className="bg-white p-4 rounded-lg w-full shadow-sm font-medium">
           <p className="text-gray-600 text-[17px] mb-1 ">Total Tables</p>
           <p className="text-gray-900 text-[17px]">{tables.length}</p>
@@ -74,6 +74,7 @@ function Tables() {
           <p className="text-red-700 text-[17px] mb-1">Occupied</p>
           <p className="text-red-900 text-[17px]">{tables.filter((t) => t.status === "Occupied").length}</p>
         </div>
+
       </div>
 
       {/* Table Info Form */}
@@ -102,12 +103,12 @@ function Tables() {
 
       {/* Table List */}
       <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
-        <div className="flex items-center gap-3 justify-between mb-12">
+        <div className="flex items-center gap-15 justify-between mb-12">
           <h3 className="font-bold text-[16px] md:text-[19px] ">
             All tables
           </h3>
 
-          <div className="flex gap-2 md:gap-3">
+          <div className="flex flex-wrap gap-3">
             <div className="flex items-center justify-center gap-1">
               <div className="w-3 h-3 md:w-4 md:h-4 bg-green-400 rounded-sm"></div>
               <p className="font-medium text-xs md:text-sm">Available</p>
@@ -117,7 +118,7 @@ function Tables() {
               <div className="w-3 h-3 md:w-4 md:h-4 bg-blue-400 rounded-sm"></div>
               <p className="font-medium text-xs md:text-sm">Reserved</p>
             </div>
-
+            
             <div className="flex items-center justify-center gap-1">
               <div className="w-3 h-3 md:w-4 md:h-4 bg-red-400 rounded-sm"></div>
               <p className="font-medium text-xs md:text-sm">Occupied</p>

@@ -367,7 +367,7 @@ function OrdersView() {
               {/* Confirm payment button */}
               <button
                 onClick={()=>{handleGenerateBill();
-                  updateOrderStatus(selectedOrder.id,'paid');
+                  updateOrderStatus(selectedOrder.id,'completed');
                 }}
                 disabled={!paymentMethod}
                 className={`w-full py-3 rounded-lg transition-colors text-white ${

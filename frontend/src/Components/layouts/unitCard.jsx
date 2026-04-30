@@ -11,7 +11,7 @@ function UnitCard({ unit, onDelete, openStatusForm}) {
       {/* Delete button */}
       <button
         onClick={() => onDelete(unit.id)}
-        className="absolute -top-2 -right-2 z-10 
+        className="absolute -top-2.5 -right-2.5 z-10 
         w-6 h-6 rounded-full bg-gray-700 hover:bg-red-500 text-white
         opacity-0 group-hover:opacity-100 transition-opacity shadow-md
         grid place-items-center"
@@ -26,7 +26,7 @@ function UnitCard({ unit, onDelete, openStatusForm}) {
         justify-center p-4 hover:scale-103 transition-all shadow-sm
         ${status === "Available" ? "bg-green-400" 
             : status === "Reserved" ? "bg-blue-400"
-              : "bg-red-400"}
+              : status === "Occupied" ? "bg-red-400" : "bg-orange-400"}
         `}>
 
         <p className="text-white font-medium text-sm mb-1">
@@ -43,13 +43,13 @@ function UnitCard({ unit, onDelete, openStatusForm}) {
           {type === "room" ? "Room" : "Table"} {unit.number}
         </p>
 
-        <p className="text-gray-50 font-medium text-[14px]">
+        <p className="text-white font-medium text-sm">
           {type === "room"
-            ? `${unit.capacity} beds`
-            : `${unit.capacity} seats`}
+            ? `${unit.capacity===1? `${unit.capacity} bed`:`${unit.capacity} beds`}`
+            : `${unit.capacity===1? `${unit.capacity} seat`:`${unit.capacity} seats`}`}
         </p>
 
-        <p className="text-white mt-2 mb-2 font-medium text-sm">
+        <p className="text-white mt-2 mb-1 font-medium text-sm">
           {unit.status}
         </p>
 

@@ -37,7 +37,7 @@ function Overview() {
         </div>
 
         {/* Today's status */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
           <MetricCard
             title="Total Revenue"
             value="Rs 0"
@@ -46,7 +46,7 @@ function Overview() {
             icon={TrendingUp}
             color="purple"
           />
-          <MetricCard
+          {/* <MetricCard
             title="Expenses"
             value="Rs 0"
             msg="Less expenses"
@@ -61,7 +61,7 @@ function Overview() {
             change="positive"
             icon={DollarSign}
             color="green"
-          />
+          /> */}
           <MetricCard
             title="Completed Orders"
             value="0"
@@ -71,9 +71,9 @@ function Overview() {
             color="orange"
           />
           <MetricCard
-            title="Total Check-ins"
+            title="Total Check-outs"
             value="0"
-            msg="x rooms reserved"
+            msg="x check-ins today"
             change=""
             icon={KeySquare}
             color="teal"

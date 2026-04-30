@@ -38,30 +38,17 @@ function Finance() {
         </div>
 
         {/* Summary cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
         <MetricCard
             title="Total Revenue"
             value="Rs 945"
-            msg="Added"
-            change="positive"
             icon={TrendingUp}
             color="red"
         />
 
         <MetricCard
-            title="Orders Completed"
-            value="1"
-            msg="Added"
-            change="positive"
-            icon={Receipt}
-            color="blue"
-        />
-
-        <MetricCard
             title="Cash Revenue"
             value="Rs 0"
-            msg="No Change"
-            change=""
             icon={Banknote}
             color="green"
         />
@@ -69,8 +56,6 @@ function Finance() {
         <MetricCard
             title="QR Revenue"
             value="Rs 945"
-            msg="Added"
-            change="positive"
             icon={QrCode}
             color="purple"
         />
