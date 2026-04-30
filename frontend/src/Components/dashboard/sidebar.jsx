@@ -10,8 +10,8 @@ import {
   History,
 } from "lucide-react";
 import { MdTableRestaurant } from "react-icons/md";
-import coffee from "../../assets/images/coffee.jpg";
-import { NavLink} from "react-router-dom";
+import logo from "../../assets/images/kitchen_pulse.png";
+import { NavLink } from "react-router-dom";
 
 function AdminDashboard() {
   const isAdmin = "admin";
@@ -46,7 +46,7 @@ function AdminDashboard() {
       <div className="flex items-center gap-3 p-4 border-b border-gray-200">
         <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden">
           <img
-            src={coffee}
+            src={logo}
             alt="cafe logo"
             className="object-cover w-full h-full"
           />
@@ -81,13 +81,12 @@ function AdminDashboard() {
               }
             >
               <Icon className="w-5 h-5" />
-              <span >{item.label}</span>
+              <span>{item.label}</span>
             </NavLink>
           );
         })}
       </div>
     </div>
-    
   );
 }
 
