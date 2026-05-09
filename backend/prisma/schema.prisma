@@ -22,12 +22,20 @@ model Role {
 
 model User {
   user_id     Int      @id @default(autoincrement())
+
   full_name   String
   email       String   @unique
   password    String
-  phone       String?
+  phone       String? @unique
+  address     String?
+
   role_id     Int
   status      String   @default("active")
+
+  must_change_password Boolean @default(true)
+  temp_password Boolean @default(false)
+  refresh_token String?
+
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
@@ -40,7 +48,7 @@ model User {
 model Guest {
   guest_id   Int      @id @default(autoincrement())
   full_name  String
-  phone      String?
+  phone      String? @unique
   created_at DateTime @default(now())
 
   stays      Stay[]
