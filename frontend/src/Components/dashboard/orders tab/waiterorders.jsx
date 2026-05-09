@@ -73,7 +73,6 @@ function WaiterOrders({ waiterOrders, setOrdersData, onCancel, changeStatus }) {
         {billModal && (
         <TableOrderBill
             selectedOrder={billModal}
-            changeStatus={changeStatus}
             close={() => setBillModal(null)}
             completeTableOrders={markOrdersCompleted}
         />

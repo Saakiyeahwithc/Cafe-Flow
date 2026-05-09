@@ -2,18 +2,36 @@ import { Percent, QrCode, Banknote, X } from "lucide-react";
 import { useState } from "react";
 import PrintTableBill from "./printtablebill";
 
-function TableOrderBill({selectedOrder, changeStatus, close}) {
+function TableOrderBill({selectedOrder, close, completeTableOrders}) {
 
     const [showQR, setShowQR] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState(null);
     const [discount, setDiscount] = useState(0);
 
-    const calculateFinalAmount = (total, discount) => {
-      return total - ((total * discount) / 100);
-    };
+    const subtotal = (selectedOrder.total).toFixed(2);
 
-    const handlePrint = () => {
+    const finalAmount =
+      (subtotal - (subtotal * discount) / 100).toFixed(2);
+
+    //MERGE ITEMS
+    const merged = {};
+
+    selectedOrder.orders.forEach((order) => {
+      order.items.forEach((item) => {
+        if (!merged[item.name]) {
+          merged[item.name] = { ...item };
+        } else {
+          merged[item.name].quantity += item.quantity;
+        }
+      });
+    });
+
+    const items = Object.values(merged);
+
+    const handlePayment = () => {
+      completeTableOrders(selectedOrder.tableNumber);
       window.print();
+      close();
     };
     
     return(
@@ -34,23 +52,23 @@ function TableOrderBill({selectedOrder, changeStatus, close}) {
             {/* Order summary */}
             <div className="bg-gray-50 rounded-lg p-4">
               <p className="text-gray-500 text-sm border-b border-gray-200 pb-2 mb-1">
-                Order #{selectedOrder.id}
-              </p>
-              <p className="text-gray-900 mb-3">
                 Table {selectedOrder.tableNumber} — {" "}
-                {selectedOrder.customerName}
+                customerName here
               </p>
 
               <div className="space-y-2 mb-3">
-                {selectedOrder.items.map((item, index) => (
-                  <div key={index} className="flex items-center justify-between text-[15.5px]">
-                    <span className="text-gray-700">
-                      {item.name} × {item.quantity}
-                    </span>
-                    <span className="text-gray-700">
-                      Rs {item.price * item.quantity}
-                    </span>
-                  </div>
+                <span className="text-gray-700">
+                  Ordered Items:
+                </span>
+                {items.map((item, i) => (
+                <div key={i} className="flex items-center justify-between text-[15.5px]">
+                  <span className="text-gray-700">
+                    {item.name} x {item.quantity}
+                  </span>
+                  <span className="text-gray-700">
+                    Rs {item.price * item.quantity}
+                  </span>
+                </div>
                 ))}
               </div>
 
@@ -58,7 +76,7 @@ function TableOrderBill({selectedOrder, changeStatus, close}) {
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600 text-sm">Subtotal</span>
                   <span className="text-gray-900">
-                    Rs {selectedOrder.total}
+                    Rs {subtotal}
                   </span>
                 </div>
 
@@ -85,7 +103,7 @@ function TableOrderBill({selectedOrder, changeStatus, close}) {
                     <span>Discount ({discount}%)</span>
                     <span>
                       − Rs{" "}
-                      {((selectedOrder.total * discount) / 100).toFixed(2)}
+                      {((subtotal * discount) / 100).toFixed(2)}
                     </span>
                   </div>
                 )}
@@ -93,7 +111,7 @@ function TableOrderBill({selectedOrder, changeStatus, close}) {
                 <div className="flex items-center justify-between border-t border-gray-200 pt-2">
                   <span className="text-gray-900">Final Amount</span>
                   <span className="text-red-500">
-                    Rs {(calculateFinalAmount(selectedOrder.total, discount)).toFixed(2)}
+                    Rs {finalAmount}
                   </span>
                 </div>
               </div>
@@ -150,7 +168,7 @@ function TableOrderBill({selectedOrder, changeStatus, close}) {
                   <p className="text-purple-700 text-sm">
                     Amount to collect: {" "}
                     <span className="text-purple-900">
-                      Rs {(calculateFinalAmount(selectedOrder.total, discount)).toFixed(2)}
+                      Rs {finalAmount}
                     </span>
                   </p>
                 </div>
@@ -159,9 +177,7 @@ function TableOrderBill({selectedOrder, changeStatus, close}) {
             {/* Confirm payment button */}
             <button
               disabled={!paymentMethod} 
-              onClick={()=>{changeStatus(selectedOrder.id,"completed");
-                handlePrint();
-              }}
+              onClick={handlePayment}
               className={`w-full py-3 rounded-lg transition-colors text-white ${
                 paymentMethod
                   ? "bg-red-500 hover:bg-red-600"

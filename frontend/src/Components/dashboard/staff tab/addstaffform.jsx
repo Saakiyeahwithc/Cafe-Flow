@@ -111,21 +111,21 @@ function AddStaffForm({close}) {
 
         <p className="mb-1 font-medium text-gray-900">Password*</p>
 
-        <div className="mb-3 border border-[#4B2E2A] bg-white rounded-lg flex items-center">
-        <input
+        <div className="relative mb-3">
+          <input
             type={showPassword ? "text" : "password"}
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full h-full p-2 rounded-lg"
-        />
+            className="w-full h-10 border border-[#4B2E2A] bg-white rounded-lg p-2 pr-10"
+          />
 
-        <button
+          <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="text-gray-600 p-2"
-        >
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600"
+          >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-        </button>
+          </button>
         </div>
 
         <p className="font-medium text-sm mb-3 text-gray-600">
