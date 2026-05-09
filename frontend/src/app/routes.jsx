@@ -1,5 +1,4 @@
 import LoginScreen from "../Components/shared/loginScreen.jsx";
-import Signup from "../Components/shared/signup.jsx";
 import Staff from "../Components/dashboard/staff tab/staffmain.jsx";
 import AdminDashboard from "../Components/layouts/sidebar.jsx";
 import DashboardLayout from "../Components/dashboard/default layout/layout.jsx";
@@ -16,6 +15,11 @@ import { Navigate } from "react-router-dom";
 import ProtectedRoute from "../auth/protectedRoute.jsx";
 
 export default [
+  {
+    path: "/",
+    element: <Navigate to="/login" replace />,
+  },
+
   { path: "/login", element: <LoginScreen /> },
 
   //admin route
@@ -27,7 +31,7 @@ export default [
       </ProtectedRoute>
     ),
     children: [
-      { index: true, element: <overview /> },
+      { index: true, element: <Overview /> },
       {
         path: "overview",
         element: <Overview />,
