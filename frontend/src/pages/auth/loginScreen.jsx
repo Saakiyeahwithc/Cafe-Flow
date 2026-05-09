@@ -2,90 +2,130 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import logo from "../../assets/images/kitchen_pulse.png";
+import Cookies from "js-cookie";
+import { toast } from "react-toastify";
+import { publicAPI } from "../../auth/config/api";
 
 function LoginScreen() {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [msg, setMsg] = useState("");
 
-  const handleLogin = () => {
-    // admin validation
-    if (username === "admin" && password.toLowerCase().trim() === "password") {
-      navigate("/dashboard");
-      return;
-    }
+  // admin validation
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-    // user validation
-    if (username === "user" && password === "456") {
-      navigate("/dashboard");
-      return;
-    }
+    try {
+      const res = await publicAPI.post("/auth/login", {
+        email,
+        password,
+      });
 
-    // invalid
-    setMsg("Invalid credentials");
+      const user = res.data.data;
+
+      Cookies.set("user", JSON.stringify(user));
+      Cookies.set("token", res.data.accessToken);
+
+      toast.success("Logged in Successfully");
+
+      setMsg("");
+
+      if (user.role.role_name === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate(-1);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+
+      toast.error("Login Failed");
+      setMsg("Invalid credentials");
+    }
   };
 
   return (
-    <div className="bg-white min-h-screen flex items-center justify-center">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background */}
       <img
         src="./src/assets/images/piqsels.jpg"
-        alt="image"
-        className="w-full
-        h-full
-        object-cover absolute inset-0 blur-xs"
+        alt="background"
+        className="absolute inset-0 w-full h-full object-cover"
       />
-      <div className="backdrop-blur-3xl bg-white/10 border border-white/20 p-8 rounded-2xl shadow-lg w-100 text-center">
-        <div className="inline-block w-20 h-20 mb-6 rounded-full overflow-hidden">
-          <img src={logo} alt="logo" className="object-cover w-full h-full" />
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+
+      {/* Login Card */}
+      <div className="relative z-10 w-[90%] max-w-md rounded-3xl border border-white/20 bg-white/10 backdrop-blur-2xl shadow-2xl p-8">
+        {/* Logo */}
+        <div className="flex flex-col items-center mb-8">
+          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-white/30 shadow-lg">
+            <img src={logo} alt="logo" className="w-full h-full object-cover" />
+          </div>
+
+          <h1 className="text-3xl font-bold text-white mt-4">Kitchen Pulse</h1>
+
+          <p className="text-white/80 mt-1 text-sm">
+            Welcome back! Please login
+          </p>
         </div>
 
-        <p className="text-[16px] font-medium mb-2 text-black">
-          Already have an account? Login
-        </p>
+        {/* Form */}
+        <div className="space-y-5">
+          {/* Email */}
+          <div>
+            <label className="block text-white mb-2 font-medium">Email</label>
 
-        <p className="mb-1 font-medium text-lg text-start text-[#4B2E2A]">
-          Username
-        </p>
-        <input
-          type="text"
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full h-10 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
-        />
+            <input
+              type="email"
+              placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full h-12 rounded-xl bg-white/20 border border-white/20 px-4 text-white placeholder:text-white/60 outline-none focus:ring-2 focus:ring-[#D4A373]"
+            />
+          </div>
 
-        <p className="mb-1 font-medium text-lg text-start text-[#4B2E2A]">
-          Password
-        </p>
+          {/* Password */}
+          <div>
+            <label className="block text-white mb-2 font-medium">
+              Password
+            </label>
 
-        <div className="relative mb-3">
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full h-10 border border-[#4B2E2A] bg-white rounded-lg p-2 pr-10"
-          />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full h-12 rounded-xl bg-white/20 border border-white/20 px-4 pr-12 text-white placeholder:text-white/60 outline-none focus:ring-2 focus:ring-[#D4A373]"
+              />
 
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
+          </div>
+
+          {/* Error */}
+          {msg && (
+            <p className="text-red-300 text-sm font-medium text-center">
+              {msg}
+            </p>
+          )}
+
+          {/* Login Button */}
           <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600"
+            onClick={handleLogin}
+            className="w-full h-12 rounded-xl bg-[#D4A373] hover:bg-[#c8925e] transition-all duration-300 text-white font-semibold text-lg shadow-lg"
           >
-            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            Login
           </button>
         </div>
-
-        <p className="mb-5 font-medium text-[16px] text-red-700">{msg}</p>
-
-        <button
-          onClick={handleLogin}
-          className="text-lg px-4 py-1.5 font-medium
-          bg-[#4B2E2A] text-[#FFF8F1] rounded-lg hover:bg-[#3B221F]"
-        >
-          Login
-        </button>
       </div>
     </div>
   );
