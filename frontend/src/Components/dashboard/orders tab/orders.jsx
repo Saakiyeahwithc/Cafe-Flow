@@ -9,23 +9,13 @@ function OrdersView() {
   const { ordersData, setOrdersData, changeStatus} = useOrders();
   //on cancel just give an alert and delete order
   const [view,setView]=useState("kitchen");//kitchen or waiter
-  const [cancelledOrders, setCancelledOrders]=useState(0);
   const role="admin";
  
   const kitchenOrders = ordersData.filter(o => o.status === "preparing");
   const waiterOrders = ordersData.filter(o => o.status === "preparing" || o.status === "prepared");
   const completedOrders = ordersData.filter(o => o.status === "completed");
   const deliveredOrders = ordersData.filter(o => o.status === "delivered");
-
-  const cancelOrder = (id) => {
-    //counter
-    setCancelledOrders(prev => prev + 1);
-
-    //remover
-    setOrdersData(prev =>
-      prev.filter(order => order.id !== id)
-    );
-  }
+  const cancelledOrders = ordersData.filter(o => o.status === "cancelled");
 
   return (
     <div className="flex-1 min-h-screen bg-gray-50 p-8">
@@ -63,7 +53,7 @@ function OrdersView() {
 
               <div className="bg-red-50 p-4 rounded-lg font-medium shadow-sm">
               <p className="text-red-700 text-[17px] mb-1">Cancelled orders</p>
-              <p className="text-red-900 text-[17px]">{cancelledOrders}</p>
+              <p className="text-red-900 text-[17px]">{cancelledOrders.length}</p>
               </div>
         </div>
 
@@ -91,7 +81,6 @@ function OrdersView() {
       {view==="kitchen" && (
         <KitchenOrders
           kitchenOrders={kitchenOrders} 
-          onCancel={cancelOrder} 
           changeStatus={changeStatus}
         />
       )}
@@ -101,7 +90,6 @@ function OrdersView() {
         <WaiterOrders 
           waiterOrders={waiterOrders}
           setOrdersData={setOrdersData}
-          onCancel={cancelOrder}
           changeStatus={changeStatus}
         />
       )}

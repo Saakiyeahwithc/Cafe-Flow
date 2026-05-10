@@ -1,7 +1,7 @@
 import { ChefHat, X, Percent, QrCode, Banknote, CircleCheck } from "lucide-react";
 import { useState } from "react";
 
-function OrderCard({ order, view, onCancel, changeStatus, openTableBill }) {
+function OrderCard({ order, view, changeStatus, openTableBill }) {
 
   return (
     <div key={order.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -84,7 +84,7 @@ function OrderCard({ order, view, onCancel, changeStatus, openTableBill }) {
               <>
                 {view==="waiter" && order.locationType === "table" && (
                   <button
-                    onClick={() => openTableBill(order.tableNumber)}
+                    onClick={() => openTableBill(order.tableNumber, order.customerName)}
                     className="bg-purple-600 text-white px-4 py-1 rounded text-sm hover:bg-purple-700"
                   >
                     Pay
@@ -103,7 +103,7 @@ function OrderCard({ order, view, onCancel, changeStatus, openTableBill }) {
             )}
 
             <button
-              onClick={() => onCancel(order.id)}
+              onClick={() => changeStatus(order.id,"cancelled")}
               className="text-red-500 border border-red-500 px-4 py-1 rounded text-sm hover:text-red-600 hover:border-red-600 hover:bg-gray-100"
             >
               Cancel
