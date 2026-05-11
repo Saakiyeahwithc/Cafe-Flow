@@ -1,8 +1,7 @@
 import { UserRoundPlus, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
-function AddStaffForm({close}) {
-
+function AddStaffForm({ close }) {
   const roles = ["Manager", "Reception", "Kitchen", "Waiter"];
 
   const [fullname, setFullname] = useState("");
@@ -11,6 +10,7 @@ function AddStaffForm({close}) {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
 
   const resetForm = () => {
@@ -19,19 +19,26 @@ function AddStaffForm({close}) {
     setContact("");
     setRoleName("");
     setAddress("");
-    setPassword("");  
+    setEmail("");
+    setPassword("");
     close();
   };
 
   const handleSignup = () => {
-
     // Regex rules
     const nameRegex = /^[A-Za-z\s]+$/;
-    const usernameRegex = /^[A-Za-z0-9._]+$/;
     const contactRegex = /^9\d{9}$/;
+    const emailRegx = /^[^\s@]+@[^\s@]+(\.[^\s@]+)+$/;
 
     // Required field check
-    if (!fullname.trim() || !roleName || !password || !contact || !address) {
+    if (
+      !fullname.trim() ||
+      !roleName ||
+      !password ||
+      !contact ||
+      !address ||
+      !email.trim()
+    ) {
       setMsg("All fields are required*");
       return;
     }
@@ -48,12 +55,18 @@ function AddStaffForm({close}) {
       return;
     }
 
+    //email validation
+    if (!emailRegx.test(email)) {
+      setMsg("Invalid email address");
+      return;
+    }
+
     // Password length validation
     if (password.length < 6) {
       setMsg("Password must be at least 6 characters long");
       return;
     }
-     
+
     //send data to backend
     resetForm();
   };
@@ -62,55 +75,62 @@ function AddStaffForm({close}) {
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-2xl w-90 overflow-y-auto max-h-screen">
         <div className="flex items-center justify-start gap-3 mb-5">
-        <UserRoundPlus className="w-5 h-5 text-gray-900" />
+          <UserRoundPlus className="w-5 h-5 text-gray-900" />
 
-        <p className="text-[18px] font-bold text-gray-900">
+          <p className="text-[18px] font-bold text-gray-900">
             Employee Registration
-        </p>
+          </p>
         </div>
 
         <p className="mb-1 font-medium text-gray-900">Full Name*</p>
         <input
-        type="text"
-        placeholder="Eg: Ram Bahadur"
-        onChange={(e) => setFullname(e.target.value)}
-        className="w-full h-9 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
+          type="text"
+          placeholder="Eg: Ram Bahadur"
+          onChange={(e) => setFullname(e.target.value)}
+          className="w-full h-9 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
         />
 
         <p className="mb-1 font-medium text-gray-900">Role Name*</p>
         <select
-        value={roleName}
-        onChange={(e) => setRoleName(e.target.value)}
-        className="w-full mb-3 border border-[#4B2E2A] rounded-lg bg-white p-2"
+          value={roleName}
+          onChange={(e) => setRoleName(e.target.value)}
+          className="w-full mb-3 border border-[#4B2E2A] rounded-lg bg-white p-2"
         >
-        <option value="" hidden>
+          <option value="" hidden>
             Select Role
-        </option>
-        {roles.map((role) => (
+          </option>
+          {roles.map((role) => (
             <option key={role} value={role.toLowerCase()}>
-            {role}
+              {role}
             </option>
-        ))}
+          ))}
         </select>
 
         <p className="mb-1 font-medium text-gray-900">Phone*</p>
         <input
-        type="tel"
-        placeholder="Eg: 9XXXXXXXXX"
-        onChange={(e) => setContact(e.target.value)}
-        className="w-full h-9 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
+          type="tel"
+          placeholder="Eg: 9XXXXXXXXX"
+          onChange={(e) => setContact(e.target.value)}
+          className="w-full h-9 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
         />
 
         <p className="mb-1 font-medium text-gray-900">Address*</p>
         <input
-        type="text"
-        placeholder="Eg: streetname, city"
-        onChange={(e) => setAddress(e.target.value)}
-        className="w-full h-9 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
+          type="text"
+          placeholder="Eg: streetname, city"
+          onChange={(e) => setAddress(e.target.value)}
+          className="w-full h-9 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
+        />
+
+        <p className="mb-1 font-medium text-gray-900">Email*</p>
+        <input
+          type="email"
+          placeholder="Eg: rambahadur@email.com"
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full h-9 mb-3 border border-[#4B2E2A] bg-white rounded-lg p-2"
         />
 
         <p className="mb-1 font-medium text-gray-900">Password*</p>
-
         <div className="relative mb-3">
           <input
             type={showPassword ? "text" : "password"}
@@ -135,26 +155,24 @@ function AddStaffForm({close}) {
         <p className="mb-5 font-medium text-sm text-red-500">{msg}</p>
 
         <div className="flex justify-between items-center">
-
-        <button
+          <button
             onClick={resetForm}
             className="inline-flex w-20 h-9 px-4 py-3 text-[15px] font-medium items-center justify-center bg-red-500 
             text-white rounded-lg hover:bg-red-600"
-        >
+          >
             Cancel
-        </button>
+          </button>
 
-        <button
+          <button
             onClick={handleSignup}
             className="inline-flex w-20 h-9 px-4 py-3 text-[15px] font-medium items-center justify-center 
             bg-green-500 text-white rounded-lg hover:bg-green-600"
-        >
+          >
             Register
-        </button>
-
+          </button>
         </div>
       </div>
     </div>
   );
 }
-export default AddStaffForm
+export default AddStaffForm;

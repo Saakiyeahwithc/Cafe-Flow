@@ -93,7 +93,7 @@ export default [
     ],
   },
 
-  // receptionist
+  // receptionist route
   {
     path: "/receptionist",
     element: (

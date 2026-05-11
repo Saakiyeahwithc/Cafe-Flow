@@ -1,5 +1,4 @@
 import { ChefHat, X, Percent, QrCode, Banknote, CircleCheck } from "lucide-react";
-import { useState } from "react";
 
 function OrderCard({ order, view, changeStatus, openTableBill }) {
 
