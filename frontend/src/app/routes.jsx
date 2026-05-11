@@ -24,7 +24,7 @@ export default [
 
   //admin route
   {
-    path: "/dashboard",
+    path: "/admin",
     element: (
       <ProtectedRoute allowedRoles={["admin"]}>
         <DashboardLayout />
@@ -73,5 +73,46 @@ export default [
         element: <History />,
       },
     ],
+  },
+
+  //waiter route
+  {
+    path: "/waiter",
+    element: (
+      <ProtectedRoute allowedRoles={["waiter"]}>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
+
+    children: [
+      { index: true, element: <Navigate to="orders" replace /> },
+
+      { path: "orders", element: <OrdersView /> },
+      { path: "menu", element: <MenuView /> },
+      { path: "tables", element: <Tables /> },
+    ],
+  },
+
+  // receptionist
+  {
+    path: "/receptionist",
+    element: (
+      <ProtectedRoute allowedRoles={["receptionist"]}>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
+
+    children: [
+      { index: true, element: <Navigate to="rooms" replace /> },
+
+      { path: "rooms", element: <Rooms /> },
+      { path: "reservations", element: <Reservations /> },
+    ],
+  },
+
+  //  Fallback route
+  {
+    path: "*",
+    element: <h1>404 Page Not Found</h1>,
   },
 ];

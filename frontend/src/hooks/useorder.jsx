@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export function useOrders() {
-   const [ordersData, setOrdersData] = useState([
+  const [ordersData, setOrdersData] = useState([
     {
       id: 1,
       locationType: "table",
@@ -9,8 +9,13 @@ export function useOrders() {
       customerName: "John Doe",
       customization: "no tomatoes in the sandwich",
       items: [
-        { name: "Cappuccino", category:"Hot Beverage" ,quantity: 2, price: 150 },
-        { name: "Club Sandwich", category:"Food" ,quantity: 1, price: 280 },
+        {
+          name: "Cappuccino",
+          category: "Hot Beverage",
+          quantity: 2,
+          price: 150,
+        },
+        { name: "Club Sandwich", category: "Food", quantity: 1, price: 280 },
       ],
       total: 580,
       status: "preparing",
@@ -22,11 +27,16 @@ export function useOrders() {
       roomNumber: 3,
       customerName: "Sarah Smith",
       items: [
-        { name: "Espresso", category:"Hot Beverage" ,quantity: 1, price: 120 },
-        { name: "Chocolate Cake", category:"Hot Beverage" ,quantity: 2, price: 180 },
+        { name: "Espresso", category: "Hot Beverage", quantity: 1, price: 120 },
+        {
+          name: "Chocolate Cake",
+          category: "Hot Beverage",
+          quantity: 2,
+          price: 180,
+        },
       ],
       total: 480,
-      status: "delivered",
+      status: "preparing",
       time: "10:25 AM",
     },
     {
@@ -35,8 +45,13 @@ export function useOrders() {
       tableNumber: 3,
       customerName: "John Cena",
       items: [
-        { name: "Espresso", category:"Hot Beverage" ,quantity: 1, price: 120 },
-        { name: "Chocolate Cake", category:"Hot Beverage" ,quantity: 2, price: 180 },
+        { name: "Espresso", category: "Hot Beverage", quantity: 1, price: 120 },
+        {
+          name: "Chocolate Cake",
+          category: "Hot Beverage",
+          quantity: 2,
+          price: 180,
+        },
       ],
       total: 480,
       status: "preparing",
@@ -48,45 +63,46 @@ export function useOrders() {
       roomNumber: 3,
       customerName: "Sarah Smith",
       items: [
-        { name: "Cappuccino", category:"Hot Beverage" ,quantity: 2, price: 150 },
-        { name: "Club Sandwich", category:"Food" ,quantity: 1, price: 280 },
+        {
+          name: "Cappuccino",
+          category: "Hot Beverage",
+          quantity: 2,
+          price: 150,
+        },
+        { name: "Club Sandwich", category: "Food", quantity: 1, price: 280 },
       ],
       total: 580,
-      status: "delivered",
+      status: "preparing",
       time: "10:30 AM",
     },
   ]);
 
   const changeStatus = (id, status) => {
-    setOrdersData(prev =>
-      prev.map(order =>
-        order.id === id
-          ? { ...order, status }
-          : order
-      )
+    setOrdersData((prev) =>
+      prev.map((order) => (order.id === id ? { ...order, status } : order)),
     );
   };
 
   const completeRoomOrders = (roomNumber, customerName) => {
-    setOrdersData(prev =>
-      prev.map(order =>
+    setOrdersData((prev) =>
+      prev.map((order) =>
         order.locationType === "room" &&
         order.roomNumber === roomNumber &&
         order.customerName === customerName &&
         order.status === "delivered"
           ? { ...order, status: "completed" }
-          : order
-      )
+          : order,
+      ),
     );
-  };  
+  };
 
   const getMenuPopularity = (orders) => {
     const categoryCount = {};
 
     orders
-      .filter(order => order.status === "completed")
-      .forEach(order => {
-        order.items.forEach(item => {
+      .filter((order) => order.status === "completed")
+      .forEach((order) => {
+        order.items.forEach((item) => {
           if (!categoryCount[item.category]) {
             categoryCount[item.category] = 0;
           }
@@ -95,15 +111,19 @@ export function useOrders() {
         });
       });
 
-    return Object.entries(categoryCount).map(
-      ([name, value]) => ({
-        name,
-        value,
-      })
-    );
+    return Object.entries(categoryCount).map(([name, value]) => ({
+      name,
+      value,
+    }));
   };
 
   const menuPopularity = getMenuPopularity(ordersData);
 
-  return { ordersData, setOrdersData, changeStatus, completeRoomOrders, menuPopularity };
+  return {
+    ordersData,
+    setOrdersData,
+    changeStatus,
+    completeRoomOrders,
+    menuPopularity,
+  };
 }

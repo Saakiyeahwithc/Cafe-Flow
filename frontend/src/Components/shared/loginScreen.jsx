@@ -40,10 +40,16 @@ function LoginScreen() {
 
       setMsg("");
 
-      if (user.role.role_name === "admin") {
-        navigate("/dashboard");
+      const role = user.role.role_name;
+
+      if (role === "admin") {
+        navigate("/admin");
+      } else if (role === "waiter") {
+        navigate("/waiter");
+      } else if (role === "receptionist") {
+        navigate("/receptionist");
       } else {
-        navigate(-1);
+        navigate("/login");
       }
     } catch (error) {
       console.error("Error:", error);
