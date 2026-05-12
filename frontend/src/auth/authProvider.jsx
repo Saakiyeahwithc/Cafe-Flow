@@ -1,48 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { AuthContext } from "./authContext";
+import Cookies from "js-cookie";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
-    const access =
-      localStorage.getItem("access") || sessionStorage.getItem("access");
-    const refresh =
-      localStorage.getItem("refresh") || sessionStorage.getItem("refresh");
-    const role = localStorage.getItem("role") || sessionStorage.getItem("role");
-    const email =
-      localStorage.getItem("email") || sessionStorage.getItem("email");
+    const timer = setTimeout(() => {
+      const userRaw = Cookies.get("user");
+      const token = Cookies.get("token");
 
-    if (access && refresh && role && email) {
-      setUser({ access, refresh, role, email });
-    } else {
-      setUser(null);
-    }
+      if (userRaw && token) {
+        const parsedUser = JSON.parse(userRaw);
+        setUser(parsedUser);
+      } else {
+        setUser(null);
+      }
+      setAuthLoading(false);
+    }, 0);
 
-    setAuthLoading(false);
+    return () => clearTimeout(timer);
   }, []);
 
-  const login = ({ access, refresh, role, email, keepSignedIn }) => {
-    const storage = keepSignedIn ? localStorage : sessionStorage;
-
-    storage.setItem("access", access);
-    storage.setItem("refresh", refresh);
-    storage.setItem("role", role);
-    storage.setItem("email", email);
-
-    setUser({ access, refresh, role, email });
-  };
-
-  const logout = () => {
-    localStorage.clear();
-    sessionStorage.clear();
-    setUser(null);
-  };
+  const contextValue = useMemo(
+    () => ({ user, setUser, authLoading }),
+    [user, authLoading],
+  );
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, authLoading }}>
-      {children}
+    <AuthContext.Provider value={contextValue}>
+      {authLoading ? <div>Loading...</div> : children}
     </AuthContext.Provider>
   );
 }

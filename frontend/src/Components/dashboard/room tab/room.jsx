@@ -3,32 +3,15 @@ import AddRoomForm from "./addroomform.jsx";
 import RoomCard from "./roomcard.jsx";
 import RoomStatusForm from "./roomstatusform.jsx";
 import { useState } from "react";
+import { useRooms } from "../../../hooks/useroom.jsx";
 
 function Rooms() {
+
+  const { rooms, setRooms, changeRoomStatus, deleteRoom } = useRooms();
+
   const [showForm, setShowForm] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
   /* const [showPopup, setShowPopup] = useState(false); */
-
-  const [rooms, setRooms] = useState([
-    { id: 1, roomNo: 3, capacity: 2, status: "Available"},
-    { id: 2, roomNo: 2, capacity: 4, status: "Available"},
-    { id: 3, roomNo: 4, capacity: 4, status: "Available"},
-    { id: 4, roomNo: 1, capacity: 1, status: "Available"},
-  ]);
-
-  const changeRoomStatus = (id, status) => {
-    setRooms(prev =>
-      prev.map(room =>
-        room.id === id
-          ? { ...room, status }
-          : room
-      )
-    );
-  };
-
-  const deleteRoom = (id) => {
-    setRooms(prev => prev.filter( room=>room.id !== id ))
-  }
 
   return (
     <div className="flex-1 min-h-screen p-8 bg-gray-50">
