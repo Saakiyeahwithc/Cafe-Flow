@@ -12,26 +12,27 @@ function MenuItemCard({
   addToOrder,
 }) {
   const [deletePopup, setDeletePopup] = useState(null);
-  const user = JSON.parse(Cookies.get("user") || "{}");
-  const role = user?.role?.role_name || role;
   return (
     <div
       className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-h-150 
     overflow-y-auto p-3 mb-6 rounded-xl border scrollbar-hide border-gray-100 "
     >
       {menuItemsData.map((item) => (
-        <div key={item.id} className="bg-white rounded-xl h-fit p-5 shadow-sm">
+        <div
+          key={item.menu_item_id}
+          className="bg-white rounded-xl h-fit p-5 shadow-sm"
+        >
           <div className="flex justify-between mb-3">
             <div className="flex gap-3">
               {/* Category based icons */}
               <div className="bg-red-50 p-2 rounded-lg flex items-center justify-center">
-                {item.category === "Hot Beverage" ? (
+                {item.category.name === "Hot Beverage" ? (
                   <Coffee className="w-5 h-5 text-red-500" />
-                ) : item.category === "Food" ? (
+                ) : item.category.name === "Food" ? (
                   <MdRoomService className="w-5 h-5 text-red-500" />
-                ) : item.category === "Soft Drinks" ? (
+                ) : item.category.name === "Soft Drinks" ? (
                   <FaGlassWater className="w-5 h-5 text-red-500" />
-                ) : item.category === "Hard Drinks" ? (
+                ) : item.category.name === "Hard Drinks" ? (
                   <FaGlassCheers className="w-5 h-5 text-red-500" />
                 ) : (
                   <FaUtensilSpoon className="w-5 h-5 text-red-500" />
@@ -41,7 +42,7 @@ function MenuItemCard({
               {/* Item name and category */}
               <div>
                 <h3>{item.name}</h3>
-                <p className="text-sm text-gray-500">{item.category}</p>
+                <p className="text-sm text-gray-500">{item.category.name}</p>
               </div>
             </div>
 
@@ -102,7 +103,7 @@ function MenuItemCard({
               </button>
               <button
                 onClick={() => {
-                  deleteItem(deletePopup.id);
+                  deleteItem(deletePopup.menu_item_id);
                   setDeletePopup(null);
                 }}
                 className="bg-red-500 text-white text-sm mt-1 font-medium px-4 py-2 rounded-lg hover:bg-red-600"
