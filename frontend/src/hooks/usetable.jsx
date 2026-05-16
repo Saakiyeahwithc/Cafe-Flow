@@ -14,39 +14,40 @@ export function useTables() {
   const fetchTables = async () => {
     try {
       const res = await privateAPI.get("/tables/");
+      console.log(res.data.data);
+
       setTables(res.data.data);
     } catch (error) {
       console.error("Error fetching tables:", error);
     }
   };
 
-  const changeTableStatus = (id, status) => {
-    setTables((prev) =>
-      prev.map((table) =>
-        table.table_id === id ? { ...table, status } : table,
-      ),
-    );
+  const changeTableStatus = async (id, status) => {
+    try {
+      if (status === "Occupied") {
+        await privateAPI.patch(`/tables/${id}/occupy`);
+      } else {
+        await privateAPI.put(`/tables/${id}`, { status });
+      }
+
+      fetchTables();
+    } catch (error) {
+      console.error("Error changing table status:", error);
+    }
   };
 
-  const assignTable = (tableNo, reservationData) => {
-    setTables((prev) =>
-      prev.map((table) =>
-        table.tableNo === tableNo
-          ? {
-              ...table,
-              status: "Reserved",
-              details: reservationData,
-            }
-          : table,
-      ),
-    );
+  const assignTable = async (id) => {
+    try {
+      await privateAPI.patch(`/table-reservations/${id}/assign`);
+      fetchTables();
+    } catch (error) {
+      console.error("Error assigning table:", error.message);
+    }
   };
-
   const deleteTable = async (id) => {
     try {
-      const res = await privateAPI.delete(`/tables/${id}`);
+      await privateAPI.delete(`/tables/${id}`);
       fetchTables();
-      // setTables((prev) => prev.filter((table) => table.id !== id));
     } catch (error) {
       console.error("Error deleting table:", error);
     }

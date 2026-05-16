@@ -5,6 +5,7 @@ import {
   getTableById,
   updateTable,
   deleteTable,
+  occupyTable,
 } from "../controllers/tablesController.js";
 
 const tableRouter = router.Router();
@@ -14,5 +15,6 @@ tableRouter.get("/", getAllTables);
 tableRouter.get("/:id", getTableById);
 tableRouter.put("/:id", updateTable);
 tableRouter.delete("/:id", deleteTable);
+tableRouter.patch("/:id/occupy", occupyTable);
 
 export default tableRouter;

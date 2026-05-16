@@ -50,9 +50,11 @@ function MenuItemCard({
               </div>
             </div>
 
-            <button onClick={() => setDeletePopup(item)}>
-              <Trash2 className="w-5 h-5 text-red-400 hover:text-red-600" />
-            </button>
+            {canToggele && (
+              <button onClick={() => setDeletePopup(item)}>
+                <Trash2 className="w-5 h-5 text-red-400 hover:text-red-600" />
+              </button>
+            )}
           </div>
 
           <p className="font-medium mb-3">Rs {item.price}</p>

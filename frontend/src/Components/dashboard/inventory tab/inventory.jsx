@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Plus } from "lucide-react";
 import SupplierCard from "./suppliercard";
+import { privateAPI } from "../../../auth/config/api";
 
 function Inventory() {
   const [supplierName, setSupplierName] = useState("");
@@ -12,37 +13,57 @@ function Inventory() {
   const [company, setCompany] = useState("");
   const [msg, setMsg] = useState("");
 
-  const [suppliers, setSuppliers] = useState([
-    {
-      id: 1,
-      name: "Rajesh Sharma",
-      category: "Electronics",
-      company: "Himalayan Tech Supplies",
-      contact: "9812345678",
-      email: "rajesh.sharma@hts.com",
-      address: "Kathmandu, Nepal",
-    },
-    {
-      id: 2,
-      name: "Kiran Rai",
-      category: "Vegetables",
-      company: "Himal Veggie House",
-      contact: "9823456789",
-      email: "kiran.rai@veggiehouse.com",
-      address: "Biratnagar, Nepal",
-    },
-    {
-      id: 3,
-      name: "Maya Lama",
-      category: "Poultry",
-      company: "Maya Fresh Poultry",
-      contact: "9856677889",
-      address: "Lalitpur, Nepal",
-    },
-  ]);
+  const [suppliers, setSuppliers] = useState([]);
 
-  const deleteSupplier = (id) => {
-    setSuppliers((prev) => prev.filter((res) => res.id !== id));
+  const fetchSuppliers = async () => {
+    try {
+      const res = await privateAPI.get("/inventory/");
+      setSuppliers(res.data.data || []);
+    } catch (err) {
+      console.error("Failed to fetch suppliers:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchSuppliers();
+  }, []);
+
+  // const [suppliers, setSuppliers] = useState([
+  //   {
+  //     id: 1,
+  //     name: "Rajesh Sharma",
+  //     category: "Electronics",
+  //     company: "Himalayan Tech Supplies",
+  //     contact: "9812345678",
+  //     email: "rajesh.sharma@hts.com",
+  //     address: "Kathmandu, Nepal",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Kiran Rai",
+  //     category: "Vegetables",
+  //     company: "Himal Veggie House",
+  //     contact: "9823456789",
+  //     email: "kiran.rai@veggiehouse.com",
+  //     address: "Biratnagar, Nepal",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Maya Lama",
+  //     category: "Poultry",
+  //     company: "Maya Fresh Poultry",
+  //     contact: "9856677889",
+  //     address: "Lalitpur, Nepal",
+  //   },
+  // ]);
+
+  const deleteSupplier = async (id) => {
+    try {
+      await privateAPI.delete(`/inventory/${id}`);
+      await fetchSuppliers();
+    } catch (error) {
+      console.error("Failed to delete supplier:", error);
+    }
   };
 
   const contactRegex = /^9\d{9}$/;
@@ -60,7 +81,7 @@ function Inventory() {
     setShowForm(false);
   };
 
-  const validateSupplierDetails = () => {
+  const validateSupplierDetails = async () => {
     if (
       !supplierName.trim() ||
       !category.trim() ||
@@ -86,7 +107,23 @@ function Inventory() {
       setMsg("Invalid email address");
       return;
     }
-    //send data to backend
+
+    try {
+      await privateAPI.post("/inventory/", {
+        supplier_name: supplierName,
+        category,
+        company,
+        contact_number: contactNumber,
+        email_address: email,
+        address,
+      });
+      fetchSuppliers();
+    } catch (error) {
+      console.error("Failed to add supplier:", error);
+      setMsg("Failed to add supplier. Please try again.");
+      return;
+    }
+
     resetForm();
   };
 

@@ -11,6 +11,16 @@ export function useRooms() {
   //     { id: 4, roomNo: 1, capacity: 1, status: "Available", details: null },
   //   ]);
 
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
+
+  const todayDate = formatDate(new Date());
+
   const fetchRooms = async () => {
     try {
       const res = await privateAPI.get("/rooms/");
@@ -20,10 +30,17 @@ export function useRooms() {
     }
   };
 
-  const changeRoomStatus = (id, status) => {
-    setRooms((prev) =>
-      prev.map((room) => (room.room_id === id ? { ...room, status } : room)),
-    );
+  const changeRoomStatus = async (id, status) => {
+    try {
+      if (status === "Occupied") {
+        await privateAPI.patch(`/rooms/${id}/occupy`);
+      } else {
+        await privateAPI.put(`/rooms/${id}/`, { status });
+      }
+      fetchRooms();
+    } catch (err) {
+      console.error("Failed to change room status:", err);
+    }
   };
 
   const deleteRoom = async (id) => {
@@ -35,19 +52,25 @@ export function useRooms() {
     }
   };
 
-  const assignRoom = (roomNo, status, details = null) => {
-    setRooms((prev) =>
-      prev.map((room) =>
-        room.room_number === roomNo
-          ? {
-              ...room,
-              status,
-              details,
-            }
-          : room,
-      ),
-    );
+  const assignRoom = async (id, details) => {
+    try {
+      await privateAPI.post(`/rooms/${id}/assign`, details);
+      fetchRooms();
+    } catch (err) {
+      console.error("Failed to assign room:", err);
+    }
   };
+
+  // Total check-ins for today
+  const checkInCount = rooms.filter((room) => {
+    if (room.status?.toLowerCase() !== "occupied") return false;
+
+    if (!room.details?.checkinDate) return false;
+
+    const checkInDate = formatDate(new Date(room.details.checkinDate));
+
+    return checkInDate === todayDate;
+  }).length;
 
   return {
     rooms,
@@ -55,5 +78,6 @@ export function useRooms() {
     changeRoomStatus,
     deleteRoom,
     assignRoom,
+    checkInCount,
   };
 }

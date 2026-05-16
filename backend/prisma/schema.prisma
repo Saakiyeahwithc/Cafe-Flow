@@ -53,9 +53,11 @@ model Guest {
   phone      String? @unique
   created_at DateTime @default(now())
 
-  stays      Stay[]
+  room_reservations RoomReservation[]
   food_orders FoodOrder[]
   billings   Billing[]
+
+  tableReservations TableReservation[]
 }
 
 model Room {
@@ -67,21 +69,22 @@ model Room {
   status            String   @default("available")
   created_at        DateTime @default(now())
 
-  stays             Stay[]
+  room_reservations RoomReservation[]
 }
 
-model Stay {
-  stay_id        Int      @id @default(autoincrement())
+model RoomReservation {
+  room_reservation_id        Int      @id @default(autoincrement())
   guest_id       Int
   room_id        Int
-  check_in       DateTime
-  check_out      DateTime?
+  guest_count     Int?
+  check_in_date  DateTime
+  check_in_time  String
+  check_out_date   DateTime?
   status         String   @default("active")
+  type           String   @default("reservation") 
   created_at     DateTime @default(now())
-
   guest          Guest    @relation(fields: [guest_id], references: [guest_id])
   room           Room     @relation(fields: [room_id], references: [room_id])
-
   billings       Billing[]
 }
 
@@ -93,6 +96,26 @@ model Table {
 
   food_orders  FoodOrder[]
   billings     Billing[]
+
+  tableReservations TableReservation[]
+}
+
+model TableReservation {
+  table_reservation_id   Int      @id @default(autoincrement())
+  guest_id         Int?
+  table_id         Int
+  reservation_date DateTime
+  reservation_time String
+  guest_count      Int?
+  status           String   @default("active")
+  type             String   @default("reservation")
+  created_at       DateTime @default(now())
+
+  guest            Guest?    @relation(fields: [guest_id], references: [guest_id])
+  table            Table    @relation(fields: [table_id], references: [table_id])
+  billings         Billing[]
+
+  foodOrders FoodOrder[]
 }
 
 model MenuCategory {
@@ -116,11 +139,14 @@ model FoodOrder {
   food_order_id Int      @id @default(autoincrement())
   table_id      Int
   guest_id      Int?
-  status        String   @default("pending")
+  status        String   @default("preparing")
+  customizations String?
   created_at    DateTime @default(now())
+  table_reservation_id Int?
 
   table         Table    @relation(fields: [table_id], references: [table_id])
   guest         Guest?   @relation(fields: [guest_id], references: [guest_id])
+  table_reservation TableReservation? @relation(fields: [table_reservation_id], references: [table_reservation_id])
 
   items         FoodOrderItem[]
   billings      Billing[]
@@ -137,15 +163,28 @@ model FoodOrderItem {
   menu_item      MenuItem  @relation(fields: [menu_item_id], references: [menu_item_id])
 }
 
+model Inventory {
+  id             Int      @id @default(autoincrement())
+  
+  supplier_name  String
+  category       String
+  company        String
+  contact_number String   @unique
+  email_address  String   @unique
+  address        String
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
 model Billing {
   bill_id        Int      @id @default(autoincrement())
 
   bill_type      BillType
 
-  stay_id        Int?
+  room_reservation_id Int?
+  table_reservation_id Int?
   food_order_id  Int?
-  table_id       Int?
-  guest_id       Int?
 
   generated_by_user_id Int
 
@@ -160,14 +199,17 @@ model Billing {
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
 
-  stay        Stay?      @relation(fields: [stay_id], references: [stay_id])
+  room_reservation RoomReservation? @relation(fields: [room_reservation_id], references: [room_reservation_id])
+  table_reservation TableReservation? @relation(fields: [table_reservation_id], references: [table_reservation_id])
   food_order  FoodOrder? @relation(fields: [food_order_id], references: [food_order_id])
-  table       Table?     @relation(fields: [table_id], references: [table_id])
-  guest       Guest?     @relation(fields: [guest_id], references: [guest_id])
 
   generated_by User @relation(fields: [generated_by_user_id], references: [user_id])
 
   payments    Payment[]
+
+  tables Table[]
+
+  guests Guest[]
 }
 
 model Payment {

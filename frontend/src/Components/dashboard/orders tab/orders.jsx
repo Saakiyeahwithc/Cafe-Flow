@@ -1,5 +1,5 @@
 /* admin view of orders */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import KitchenOrders from "./kitchenorders";
 import WaiterOrders from "./waiterorders";
 import { useOrders } from "../../../hooks/useorder";
@@ -9,16 +9,21 @@ import { useAuth } from "../../../auth/authContext";
 function OrdersView() {
   const {
     ordersData,
-    setOrdersData,
+    fetchOrders,
     changeStatus,
     kitchenOrders,
     completedOrders,
+    setOrdersData,
   } = useOrders();
 
   //on cancel just give an alert and delete order
   const [view, setView] = useState("kitchen"); //kitchen or waiter
   const { user } = useAuth();
-  const role = user?.role?.role_name || role;
+  const role = user?.role?.role_name;
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
 
   const waiterOrders = ordersData.filter(
     (o) => o.status === "preparing" || o.status === "prepared",
@@ -95,7 +100,7 @@ function OrdersView() {
       )}
 
       {/* kitchen View */}
-      {(view === "kitchen" || role === "kitchen") && (
+      {(role === "admin" || role === "kitchen") && (
         <KitchenOrders
           kitchenOrders={kitchenOrders}
           changeStatus={changeStatus}
@@ -103,7 +108,7 @@ function OrdersView() {
       )}
 
       {/*waiter view */}
-      {(view === "waiter" || role === "waiter") && (
+      {(role === "admin" || role === "waiter") && (
         <WaiterOrders
           waiterOrders={waiterOrders}
           setOrdersData={setOrdersData}

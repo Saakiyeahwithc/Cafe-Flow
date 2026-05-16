@@ -4,80 +4,78 @@ import { ChefHat } from "lucide-react";
 import TableOrderBill from "./tableorderbill";
 
 function WaiterOrders({ waiterOrders, setOrdersData, onCancel, changeStatus }) {
-    const [billModal, setBillModal] = useState(null);
+  const [billModal, setBillModal] = useState(null);
 
-    const sortedWaiterOrders = [...waiterOrders].sort((o1, o2) => {
+  const sortedWaiterOrders = [...waiterOrders].sort((o1, o2) => {
     const priority = (status) => {
-        if (status === "prepared") return 0;
-        if (status === "preparing") return 1;
-        return 2;
+      if (status === "prepared") return 0;
+      if (status === "preparing") return 1;
+      return 2;
     };
     return priority(o1.status) - priority(o2.status);
-    });
+  });
 
-   const openTableBill = (tableNumber, customerName) => {
+  const openTableBill = (tableNumber, customerName) => {
     const tableOrders = waiterOrders.filter(
-        o =>
+      (o) =>
         o.locationType === "table" &&
-        o.tableNumber === tableNumber &&
-        o.customerName === customerName &&
-        o.status === "prepared"
+        o.table.table_number === tableNumber &&
+        o.guest?.full_name === customerName &&
+        o.status === "prepared",
     );
 
     setBillModal({
-        tableNumber,
-        customerName,
-        orders: tableOrders,
+      tableNumber,
+      customerName,
+      orders: tableOrders,
     });
-    };
+  };
 
-    const markOrdersCompleted = (orders) => {
-    setOrdersData(prev =>
-        prev.map(order =>
-        orders.some(o => o.id === order.id)
-            ? { ...order, status: "completed" }
-            : order
-        )
-    );
-    };
+  //   const markOrdersCompleted = (orders) => {
+  //     setOrdersData((prev) =>
+  //       prev.map((order) =>
+  //         orders.some((o) => o.food_order_id === order.id)
+  //           ? { ...order, status: "completed" }
+  //           : order,
+  //       ),
+  //     );
+  //   };
 
-    return(
+  return (
     <div className="flex-1 min-h-screen bg-gray-50 p-4 lg:p-6">
-
-        {waiterOrders.length === 0 ? 
-        (
+      {waiterOrders.length === 0 ? (
         <div className="bg-white font-medium rounded-xl shadow-sm p-14 text-center">
-            <ChefHat className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-gray-500">No active orders right now</p>
-            <p className="text-gray-400 text-sm mt-1">
+          <ChefHat className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500">No active orders right now</p>
+          <p className="text-gray-400 text-sm mt-1">
             New order will appear here when customers place order
-            </p>
+          </p>
         </div>
-        ) : 
-        (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {sortedWaiterOrders.map((order) => (
-                <OrderCard
-                    order={order}
-                    view="waiter"
-                    onCancel={onCancel}
-                    changeStatus={changeStatus}
-                    openTableBill={openTableBill}
-                />
-            ))}
-            </div>
-        )}
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {sortedWaiterOrders.map((order) => (
+            <OrderCard
+              key={order.food_order_id}
+              order={order}
+              view="waiter"
+              onCancel={onCancel}
+              //   changeStatus={changeStatus}
+              openTableBill={openTableBill}
+            />
+          ))}
+        </div>
+      )}
 
-        {/* Bill & Payment Modal */}
-        {billModal && (
+      {/* Bill & Payment Modal */}
+      {billModal && (
         <TableOrderBill
-            selectedOrder={billModal}
-            close={() => setBillModal(null)}
-            completeTableOrders={markOrdersCompleted}
+          selectedOrder={billModal}
+          close={() => setBillModal(null)}
+          //   completeTableOrders={markOrdersCompleted}
         />
-        )}
+      )}
     </div>
-    )
+  );
 }
 
-export default WaiterOrders
+export default WaiterOrders;

@@ -1,11 +1,21 @@
 import { X, UtensilsCrossed } from "lucide-react";
 import { useState, useRef } from "react";
 
-function TableCard({ tables, deleteTable, selectedTable }) {
+function TableCard({ tables, fetchTables, deleteTable, selectedTable }) {
   const [deletePopup, setDeletePopup] = useState(null);
   const [activeInfo, setActiveInfo] = useState(null);
   const pressTimer = useRef(null);
   const hideTimer = useRef(null);
+
+  const formatTime = (time) => {
+    if (!time) return "N/A";
+    const [hours, minutes] = time.split(":");
+    let h = Number(hours);
+    const ampm = h >= 12 ? "PM" : "AM";
+    h = h % 12;
+    h = h ? h : 12;
+    return `${h}:${minutes} ${ampm}`;
+  };
 
   return (
     <div className="flex flex-wrap gap-5">
@@ -102,17 +112,30 @@ function TableCard({ tables, deleteTable, selectedTable }) {
 
                 {table.status === "Occupied" && (
                   <div>
-                    <p>Name: Name</p>
-                    <p>Date: 2062-02-01</p>
+                    <p>Name: {table.guest_name || "N/A"}</p>
                   </div>
                 )}
 
                 {table.status === "Reserved" && (
                   <div>
-                    <p>Name: Name</p>
-                    <p>Contact No: 9999999999</p>
-                    <p>Arrival Time: Time</p>
-                    <p>Date: Date</p>
+                    <p>
+                      Name: {table.todayReservation?.guest?.full_name || "N/A"}
+                    </p>
+                    {/* <p>Contact No: {table.guest_contact || "N/A"}</p> */}
+                    <p>
+                      Arrival Time:{" "}
+                      {formatTime(
+                        table.todayReservation?.reservation_time || "N/A",
+                      )}
+                    </p>
+                    <p>
+                      Date:{" "}
+                      {table.todayReservation?.reservation_date
+                        ? new Date(
+                            table.todayReservation.reservation_date,
+                          ).toLocaleDateString()
+                        : "N/A"}
+                    </p>
                   </div>
                 )}
               </div>

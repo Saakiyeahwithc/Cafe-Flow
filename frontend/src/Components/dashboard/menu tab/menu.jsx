@@ -6,11 +6,19 @@ import KitchenOrderTicket from "./kitchenorderticket";
 import { privateAPI } from "../../../auth/config/api.js";
 import { useAuth } from "../../../auth/authContext.jsx";
 
+import { useRooms } from "../../../hooks/useroom.jsx";
+import { useTables } from "../../../hooks/usetable.jsx";
+
 function MenuView() {
   const { user } = useAuth();
 
+  const { rooms, fetchRooms } = useRooms();
+  const { tables, fetchTables } = useTables();
+
   const [menuItemsData, setMenuItemsData] = useState([]);
   const [categories, setCategories] = useState([]);
+  // const [rooms, setRooms] = useState([]);
+  // const [tables, setTables] = useState([]);
   // const [menuItemsData, setMenuItemsData] = useState([
   //   {
   //     id: 1,
@@ -67,15 +75,6 @@ function MenuView() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showAddModal, setShowAddModal] = useState(false);
 
-  // const categories = [
-  //   "All",
-  //   "Food",
-  //   "Dessert",
-  //   "Hot Beverage",
-  //   "Soft Drinks",
-  //   "Hard Drinks",
-  // ];
-
   const fetchCategories = async () => {
     try {
       const res = await privateAPI.get("/categories/");
@@ -101,6 +100,8 @@ function MenuView() {
   useEffect(() => {
     fetchMenuItems();
     fetchCategories();
+    fetchRooms();
+    fetchTables();
   }, []);
 
   const toggleItemAvailability = async (id) => {
@@ -181,7 +182,12 @@ function MenuView() {
       />
 
       {/* Order Placing */}
-      <KitchenOrderTicket orderSlip={orderSlip} setOrderSlip={setOrderSlip} />
+      <KitchenOrderTicket
+        orderSlip={orderSlip}
+        setOrderSlip={setOrderSlip}
+        tables={tables.filter((t) => t.status === "Occupied")}
+        rooms={rooms.filter((r) => r.status === "Occupied")}
+      />
 
       {/* Adding new item */}
       {showAddModal && (

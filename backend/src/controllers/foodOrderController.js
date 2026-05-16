@@ -1,7 +1,7 @@
 // src/controllers/foodOrder.controller.js
 import { prisma } from "../utils/prisma.js";
 
-const VALID_STATUSES = ["pending", "preparing", "served", "cancelled"];
+const VALID_STATUSES = ["preparing", "prepared", "cancelled"];
 
 // ─── Create Food Order (with items) ──────────────────────────────────────────
 export const createFoodOrder = async (req, res, next) => {
@@ -54,7 +54,7 @@ export const createFoodOrder = async (req, res, next) => {
         data: {
           table_id: Number(table_id),
           guest_id: guest_id ? Number(guest_id) : null,
-          status: "pending",
+          status: "preparing",
           items: {
             create: items.map((item) => ({
               menu_item_id: Number(item.menu_item_id),
@@ -73,7 +73,7 @@ export const createFoodOrder = async (req, res, next) => {
       // Mark table as occupied
       await tx.table.update({
         where: { table_id: Number(table_id) },
-        data: { status: "occupied" },
+        data: { status: "Occupied" },
       });
 
       return order;

@@ -7,7 +7,11 @@ import {
   CircleCheck,
 } from "lucide-react";
 
+import { useAuth } from "../../../auth/authContext.jsx";
+
 function OrderCard({ order, view, changeStatus, openTableBill }) {
+  const { user } = useAuth();
+  const role = user?.role?.role_name;
   return (
     <div
       key={order.food_order_id}
@@ -26,11 +30,10 @@ function OrderCard({ order, view, changeStatus, openTableBill }) {
           </div>
           <div className="text-right">
             <p className="opacity-90 text-sm">{order.created_at}</p>
-            <p className="text-sm">{order.customerName}</p>
+            <p className="text-sm">{order.guest?.full_name}</p>
           </div>
         </div>
       </div>
-
       <div className="p-4">
         {/* Items */}
         <p className="text-gray-600 text-sm mb-2">Order Items:</p>
@@ -74,21 +77,26 @@ function OrderCard({ order, view, changeStatus, openTableBill }) {
 
           {/* Actions */}
           <div className="flex gap-2">
-            {view === "kitchen" && order.status === "preparing" && (
-              <button
-                onClick={() => changeStatus(order.id, "prepared")}
-                className="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded text-sm"
-              >
-                Mark Ready
-              </button>
-            )}
+            {view === "kitchen" &&
+              (role === "kitchen" || role === "admin") &&
+              order.status === "preparing" && (
+                <button
+                  onClick={() => changeStatus(order.food_order_id, "prepared")}
+                  className="bg-green-500 hover:bg-green-600 text-white px-4 py-1 rounded text-sm"
+                >
+                  Mark Ready
+                </button>
+              )}
 
             {order.status === "prepared" && (
               <>
                 {view === "waiter" && order.locationType === "table" && (
                   <button
                     onClick={() =>
-                      openTableBill(order.tableNumber, order.customerName)
+                      openTableBill(
+                        order.table.table_number,
+                        order.guest?.full_name,
+                      )
                     }
                     className="bg-purple-600 text-white px-4 py-1 rounded text-sm hover:bg-purple-700"
                   >
@@ -98,7 +106,9 @@ function OrderCard({ order, view, changeStatus, openTableBill }) {
 
                 {view === "waiter" && order.locationType === "room" && (
                   <button
-                    onClick={() => changeStatus(order.id, "delivered")}
+                    onClick={() =>
+                      changeStatus(order.food_order_id, "delivered")
+                    }
                     className="bg-blue-500 text-white px-4 py-1 rounded text-sm hover:bg-blue-600"
                   >
                     Room Service
@@ -108,7 +118,7 @@ function OrderCard({ order, view, changeStatus, openTableBill }) {
             )}
 
             <button
-              onClick={() => changeStatus(order.id, "cancelled")}
+              onClick={() => changeStatus(order.food_order_id, "cancelled")}
               className="text-red-500 border border-red-500 px-4 py-1 rounded text-sm hover:text-red-600 hover:border-red-600 hover:bg-gray-100"
             >
               Cancel

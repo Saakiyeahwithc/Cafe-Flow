@@ -99,6 +99,7 @@ function Tables() {
         {/* Table Cards */}
         <TableCard
           tables={tables}
+          fetchTables={fetchTables}
           deleteTable={deleteTable}
           selectedTable={(table) => setSelectedTable(table)}
         />

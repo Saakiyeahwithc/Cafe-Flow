@@ -174,3 +174,81 @@ export const deleteRoom = async (req, res, next) => {
     next(error);
   }
 };
+
+export const occupyRoom = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { guest_name, phone, guest_count, check_in_date, check_in_time } =
+      req.body;
+
+    if (!guest_name || !guest_count || !check_in_date || !check_in_time) {
+      return res.status(400).json({
+        message:
+          "guest_name, guest_count, check_in_date and check_in_time are required",
+      });
+    }
+
+    const room = await prisma.room.findUnique({
+      where: { room_id: Number(id) },
+    });
+
+    if (!room) {
+      return res.status(404).json({ message: "Room not found" });
+    }
+
+    if (room.status !== "available") {
+      return res.status(400).json({
+        message: `Room is currently ${room.status} and cannot be occupied`,
+      });
+    }
+
+    if (room.capacity < Number(guest_count)) {
+      return res.status(400).json({
+        message: `Room capacity (${room.capacity}) is less than guest count (${guest_count})`,
+      });
+    }
+
+    const result = await prisma.$transaction(async (tx) => {
+      // Reuse guest if phone matches, otherwise create new
+      let guest = phone
+        ? await tx.guest.findUnique({ where: { phone } })
+        : null;
+
+      if (!guest) {
+        guest = await tx.guest.create({
+          data: {
+            full_name: guest_name,
+            phone: phone || null,
+          },
+        });
+      }
+
+      const reservation = await tx.roomReservation.create({
+        data: {
+          guest_count: Number(guest_count),
+          check_in_date: new Date(check_in_date),
+          check_in_time,
+          status: "active", // walk-in is checked in immediately
+          type: "walk_in",
+          guest: { connect: { guest_id: guest.guest_id } },
+          room: { connect: { room_id: Number(id) } },
+        },
+        include: { guest: true, room: true },
+      });
+
+      await tx.room.update({
+        where: { room_id: Number(id) },
+        data: { status: "Occupied" },
+      });
+
+      return reservation;
+    });
+
+    return res.status(200).json({
+      message: "Room occupied successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

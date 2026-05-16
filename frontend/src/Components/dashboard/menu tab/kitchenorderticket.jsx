@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import { privateAPI } from "../../../auth/config/api.js";
 
-function KitchenOrderTicket({ orderSlip, setOrderSlip }) {
+function KitchenOrderTicket({ orderSlip, setOrderSlip, tables, rooms }) {
   const [location, setLocation] = useState("table");
+  const [tableId, setTableId] = useState("");
+  const [roomId, setRoomId] = useState("");
   const [tableNumber, setTableNumber] = useState("");
   const [roomNumber, setRoomNumber] = useState("");
   const [guestName, setGuestName] = useState("");
@@ -42,16 +44,12 @@ function KitchenOrderTicket({ orderSlip, setOrderSlip }) {
   }, 0);
 
   const handleSubmit = async () => {
-    if (location === "table" && !tableNumber) {
-      setMsg("Please enter table number.");
+    if (location === "table" && !tableId) {
+      setMsg("Please select a table.");
       return;
     }
-    if (location === "room" && !roomNumber) {
-      setMsg("Please enter room number.");
-      return;
-    }
-    if (!guestName) {
-      setMsg("Please enter guest name.");
+    if (location === "room" && !roomId) {
+      setMsg("Please select a room.");
       return;
     }
     if (orderSlip.length === 0) {
@@ -60,15 +58,6 @@ function KitchenOrderTicket({ orderSlip, setOrderSlip }) {
     }
 
     try {
-      const tableRes = await privateAPI.get(
-        `/tables?table_number=${tableNumber}`,
-      );
-      const table = tableRes.data.data[0];
-      if (!table) {
-        setMsg("Table not found.");
-        return;
-      }
-
       const uniqueItemIds = [...new Set(orderSlip.map((i) => i.menu_item_id))];
       const items = uniqueItemIds.map((id) => ({
         menu_item_id: id,
@@ -76,13 +65,17 @@ function KitchenOrderTicket({ orderSlip, setOrderSlip }) {
       }));
 
       await privateAPI.post("/food-orders/", {
-        table_id: table.table_id,
+        table_id: location === "table" ? Number(tableId) : undefined,
+        room_id: location === "room" ? Number(roomId) : undefined,
+        guest: {
+          full_name: guestName,
+        },
         items,
       });
 
       setMsg("");
-      setTableNumber("");
-      setRoomNumber("");
+      setTableId("");
+      setRoomId("");
       setGuestName("");
       setCustomization("");
       setOrderSlip([]);
@@ -123,19 +116,30 @@ function KitchenOrderTicket({ orderSlip, setOrderSlip }) {
           <p className="mb-2 text-[16px]">
             {location === "table" ? "Table" : "Room"} Number:
           </p>
-          <input
-            type="number"
-            placeholder={
-              location === "table" ? "Enter table number" : "Enter room number"
-            }
-            value={location === "table" ? tableNumber : roomNumber}
+          <select
+            value={location === "table" ? tableId : roomId}
             onChange={(e) =>
               location === "table"
-                ? setTableNumber(e.target.value)
-                : setRoomNumber(e.target.value)
+                ? setTableId(e.target.value)
+                : setRoomId(e.target.value)
             }
-            className="border rounded-lg p-2 mb-4"
-          />
+            className="border rounded-lg p-2 mb-4 w-full"
+          >
+            <option value="" hidden>
+              Select {location === "table" ? "Table" : "Room"}
+            </option>
+            {location === "table"
+              ? tables.map((t) => (
+                  <option key={t.table_id} value={t.table_id}>
+                    Table {t.table_number} ({t.capacity} seats)
+                  </option>
+                ))
+              : rooms.map((r) => (
+                  <option key={r.room_id} value={r.room_id}>
+                    Room {r.room_number}
+                  </option>
+                ))}
+          </select>
 
           {/* Name input */}
           <p className="mb-2 text-[16px]">Guest Name:</p>

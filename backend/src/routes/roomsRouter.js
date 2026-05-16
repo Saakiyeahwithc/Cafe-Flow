@@ -6,13 +6,17 @@ import {
   updateRoom,
   deleteRoom,
 } from "../controllers/roomsController.js";
+import {
+  authenticateToken,
+  checkRole,
+} from "../middlewares/auth.Middleware.js";
 
 const roomRouter = router.Router();
 
-roomRouter.post("/", createRoom);
-roomRouter.get("/", getAllRooms);
-roomRouter.get("/:id", getRoomById);
-roomRouter.put("/:id", updateRoom);
-roomRouter.delete("/:id", deleteRoom);
+roomRouter.post("/", authenticateToken, createRoom);
+roomRouter.get("/", authenticateToken, getAllRooms);
+roomRouter.get("/:id", authenticateToken, getRoomById);
+roomRouter.put("/:id", authenticateToken, updateRoom);
+roomRouter.delete("/:id", authenticateToken, deleteRoom);
 
 export default roomRouter;

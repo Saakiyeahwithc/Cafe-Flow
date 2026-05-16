@@ -83,7 +83,28 @@ export function useOrders() {
   const fetchOrders = async () => {
     try {
       const res = await privateAPI.get("/food-orders/");
-      setOrdersData(res.data.data);
+      console.log(res.data);
+
+      const raw = res.data.data;
+
+      const normalized = raw.map((order) => ({
+        ...order,
+        locationType: order.table_id ? "table" : "room", // adjust to your actual schema
+        tableNumber: order.table?.table_number,
+        roomNumber: order.room?.room_number,
+        customerName: order.guest?.full_name,
+        items: order.items.map((item) => ({
+          ...item,
+          name: item.menu_item.name,
+          price: item.unit_price,
+        })),
+        total: order.items.reduce(
+          (sum, item) => sum + item.unit_price * item.quantity,
+          0,
+        ),
+      }));
+
+      setOrdersData(normalized);
     } catch (err) {
       console.error("Failed to fetch orders:", err);
     }
@@ -102,8 +123,8 @@ export function useOrders() {
     setOrdersData((prev) =>
       prev.map((order) =>
         order.locationType === "room" &&
-        order.roomNumber === roomNumber &&
-        order.customerName === customerName &&
+        order.room.room_number === roomNumber &&
+        order.guest.full_name === customerName &&
         order.status === "delivered"
           ? { ...order, status: "completed" }
           : order,
@@ -139,6 +160,7 @@ export function useOrders() {
   const kitchenOrders = ordersData.filter((o) => o.status === "preparing");
   return {
     ordersData,
+    setOrdersData,
     fetchOrders,
     changeStatus,
     completeRoomOrders,

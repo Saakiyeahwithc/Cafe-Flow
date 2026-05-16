@@ -8,6 +8,9 @@ import menuCategoriesRouter from "./menuCategoriesRouter.js";
 import menuItemRouter from "./menuItemsRouter.js";
 import tablesRouter from "./tablesRouter.js";
 import foodOrdersRouter from "./foodOrdersRouter.js";
+import roomReservationRouter from "./roomReservationRouter.js";
+import tableReservationRouter from "./tableReservationRouter.js";
+import inventoryRouter from "./inventoryRouter.js";
 
 const router = Router();
 
@@ -20,5 +23,8 @@ router.use("/categories", menuCategoriesRouter);
 router.use("/menu-items", menuItemRouter);
 router.use("/tables", tablesRouter);
 router.use("/food-orders", foodOrdersRouter);
+router.use("/room-reservations", roomReservationRouter);
+router.use("/table-reservations", tableReservationRouter);
+router.use("/inventory", inventoryRouter);
 
 export default router;
