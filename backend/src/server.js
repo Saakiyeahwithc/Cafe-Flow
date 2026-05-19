@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 5051;
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://192.168.100.116:5173",
+    origin: "https://kitchenfloow.netlify.app/",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
