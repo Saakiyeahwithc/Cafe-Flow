@@ -1,5 +1,3 @@
-// prisma/seed.js
-
 import { prisma } from "../src/utils/prisma.js";
 import bcrypt from "bcryptjs";
 
@@ -19,6 +17,35 @@ export const createAdmin = async () => {
       return;
     }
 
+    // ← seed all 5 roles
+    const roles = [
+      { role_name: "admin", description: "Full system access and management" },
+      { role_name: "waiter", description: "Takes and manages food orders" },
+      {
+        role_name: "kitchen",
+        description: "Prepares and manages kitchen orders",
+      },
+      {
+        role_name: "reception",
+        description: "Manages guest check-ins and reservations",
+      },
+      {
+        role_name: "manager",
+        description: "Oversees daily operations and staff",
+      },
+    ];
+
+    for (const role of roles) {
+      await prisma.role.upsert({
+        where: { role_name: role.role_name },
+        update: {},
+        create: role,
+      });
+    }
+
+    console.log("✓ All roles seeded successfully");
+
+    // ← create admin user
     const existingAdmin = await prisma.user.findFirst({
       where: { email: adminEmail },
     });
