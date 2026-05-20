@@ -46,9 +46,9 @@ export const authenticateToken = async (req, res, next) => {
 
 export const checkRole = (...allowedRoles) => {
   return (req, res, next) => {
-    console.log("checkRole hit");
-    console.log("req.user:", req.user);
-    console.log("allowedRoles:", allowedRoles);
+    // console.log("checkRole hit");
+    // console.log("req.user:", req.user);
+    // console.log("allowedRoles:", allowedRoles);
     if (!req.user) {
       return res.status(401).json({
         status: false,
