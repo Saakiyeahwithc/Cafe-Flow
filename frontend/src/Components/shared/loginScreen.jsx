@@ -65,7 +65,7 @@ function LoginScreen() {
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background */}
       <img
-        src="./src/assets/images/piqsels.jpg"
+        src="./piqsels.jpg"
         alt="background"
         className="absolute inset-0 w-full h-full object-cover"
       />
