@@ -2,6 +2,8 @@ import { Percent, QrCode, Banknote, X } from "lucide-react";
 import { useState } from "react";
 import PrintTableBill from "./printtablebill";
 import { useTables } from "../../../hooks/usetable";
+import { privateAPI } from "../../../auth/config/api";
+import { useAuth } from "../../../auth/authContext.jsx";
 
 function TableOrderBill({ selectedOrder, close, completeTableOrders }) {
   const [showQR, setShowQR] = useState(false);
@@ -10,7 +12,7 @@ function TableOrderBill({ selectedOrder, close, completeTableOrders }) {
   const [confirmPayment, setConfirmPayment] = useState(false);
 
   const { tables, fetchTables, changeTableStatus } = useTables();
-
+  const { user } = useAuth();
   //MERGE ITEMS
   const merged = {};
 
@@ -41,6 +43,27 @@ function TableOrderBill({ selectedOrder, close, completeTableOrders }) {
     // changeTableStatus(tables.table_id, "Available");
   };
 
+  //_______save bill_______
+
+  const saveBill = async () => {
+    try {
+      await privateAPI.post("billing/", {
+        // note: route is "/" not "/create"
+        bill_type: "TABLE", // required field
+        generated_by_user_id: user.user_id, // required field
+        table_reservation_id: selectedOrder.table_id,
+        payment_method: paymentMethod,
+        subtotal,
+        food_charges: subtotal,
+        discount_amount: discountAmount,
+        total_amount: finalAmount,
+        bill_status: "PAID",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl w-full max-w-md shadow-2xl max-h-[90vh] overflow-y-auto">
@@ -56,7 +79,7 @@ function TableOrderBill({ selectedOrder, close, completeTableOrders }) {
           {/* Order summary */}
           <div className="bg-gray-50 rounded-lg p-4">
             <p className="text-gray-500 text-sm border-b border-gray-200 pb-2 mb-1">
-              Table {selectedOrder.tableNumber} — customerName here
+              Table {selectedOrder.tableNumber}
             </p>
 
             <div className="space-y-2 mb-3">
@@ -221,9 +244,11 @@ function TableOrderBill({ selectedOrder, close, completeTableOrders }) {
               </button>
 
               <button
-                onClick={() => {
+                onClick={async () => {
+                  await saveBill();
                   completeTableOrders(selectedOrder.orders);
-                  setConfirmPayment(false);
+                  changeTableStatus(selectedOrder.table_id, "Available");
+                  setConfirmPayment(true);
                   close();
                 }}
                 className="px-4 py-1.5 text-[15px] font-medium bg-green-500 text-white rounded-lg"

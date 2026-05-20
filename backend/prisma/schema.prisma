@@ -233,9 +233,9 @@ model Payment {
 }
 
 enum BillType {
-  food
-  room
-  combined
+  Food
+  Room
+  Combined
 }
 
 enum BillStatus {
@@ -246,8 +246,8 @@ enum BillStatus {
 }
 
 enum PaymentMethod {
-  cash
-  card
+  Cash
+  Qr
   bank_transfer
   complimentary
 }

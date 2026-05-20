@@ -26,7 +26,7 @@ function AdminDashboard({ open, setOpen }) {
     { id: "finance", label: "Finance", icon: Coins },
     { id: "staff", label: "Staff", icon: UserCog },
     { id: "inventory", label: "Inventory", icon: Package },
-    { id: "history", label: "History", icon: History },
+    // { id: "history", label: "History", icon: History },
   ];
   const menuByRole = {
     admin: adminMenu,

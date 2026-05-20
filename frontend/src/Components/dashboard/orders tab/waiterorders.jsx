@@ -31,15 +31,15 @@ function WaiterOrders({ waiterOrders, setOrdersData, onCancel, changeStatus }) {
     });
   };
 
-  //   const markOrdersCompleted = (orders) => {
-  //     setOrdersData((prev) =>
-  //       prev.map((order) =>
-  //         orders.some((o) => o.food_order_id === order.id)
-  //           ? { ...order, status: "completed" }
-  //           : order,
-  //       ),
-  //     );
-  //   };
+  const markOrdersCompleted = (orders) => {
+    setOrdersData((prev) =>
+      prev.map((order) =>
+        orders.some((o) => o.food_order_id === order.id)
+          ? { ...order, status: "completed" }
+          : order,
+      ),
+    );
+  };
 
   return (
     <div className="flex-1 min-h-screen bg-gray-50 p-4 lg:p-6">
@@ -71,7 +71,7 @@ function WaiterOrders({ waiterOrders, setOrdersData, onCancel, changeStatus }) {
         <TableOrderBill
           selectedOrder={billModal}
           close={() => setBillModal(null)}
-          //   completeTableOrders={markOrdersCompleted}
+          completeTableOrders={markOrdersCompleted}
         />
       )}
     </div>

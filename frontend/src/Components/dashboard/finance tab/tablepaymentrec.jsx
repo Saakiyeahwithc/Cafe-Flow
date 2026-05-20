@@ -1,14 +1,30 @@
 import { SlidersHorizontal, ReceiptText } from "lucide-react";
 import Filter from "../../layouts/filter";
 import { useState, useEffect } from "react";
+import { privateAPI } from "../../../auth/config/api";
 
 function TablePayment({ tablePayments }) {
   const [showFilter, setShowFilter] = useState(false);
-  const [filteredData, setFilteredData] = useState(tablePayments);
+  const [payments, setPayments] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setFilteredData(tablePayments);
-  }, [tablePayments]);
+    fetchPayments();
+  }, []);
+
+  const fetchPayments = async () => {
+    try {
+      const res = await privateAPI.get("/finance");
+
+      setPayments(res.data.bills);
+      setFilteredData(res.data.bills);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -32,7 +48,11 @@ function TablePayment({ tablePayments }) {
       {/* Payment Records */}
       <div className="bg-white rounded-xl shadow-sm overflow-hidden">
         <div className="w-full overflow-x-auto">
-          {filteredData.length === 0 ? (
+          {loading ? (
+            <div className="text-center p-6 text-gray-500">
+              Loading payments...
+            </div>
+          ) : filteredData.length === 0 ? (
             <div className="text-gray-500 font-medium text-center text-lg p-4 mb-3">
               No records to display
             </div>
@@ -43,18 +63,23 @@ function TablePayment({ tablePayments }) {
                   <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
                     #
                   </th>
+
                   <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
                     Table
                   </th>
+
                   <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
                     Customer
                   </th>
+
                   <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
                     Final payment
                   </th>
+
                   <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm">
                     Payment type
                   </th>
+
                   <th className="px-6 py-3 text-left text-gray-600 font-medium text-sm ">
                     Date
                   </th>
@@ -64,26 +89,31 @@ function TablePayment({ tablePayments }) {
               <tbody>
                 {[...filteredData].reverse().map((tablePayRec, index) => (
                   <tr
-                    key={tablePayRec.id}
+                    key={tablePayRec.bill_id}
                     className="border-b border-gray-100 hover:bg-gray-50"
                   >
                     <td className="px-6 py-3 text-gray-600 text-sm">
                       {index + 1}
                     </td>
+
                     <td className="px-6 py-3 text-gray-600 text-sm">
-                      Table {tablePayRec.tableNo}
+                      Table {tablePayRec.table_number}
                     </td>
+
                     <td className="px-6 py-3 text-gray-600 text-sm">
-                      {tablePayRec.customer}
+                      {tablePayRec.customer_name || "Walk-in Customer"}
                     </td>
+
                     <td className="px-6 py-3 text-gray-600 text-sm">
-                      Rs {tablePayRec.finalPayment}
+                      Rs {tablePayRec.total_amount}
                     </td>
+
                     <td className="px-6 py-3 text-gray-600 text-sm">
-                      {tablePayRec.paymentType}
+                      {tablePayRec.payment_method}
                     </td>
+
                     <td className="px-6 py-3 text-gray-600 text-sm">
-                      {tablePayRec.date}
+                      {new Date(tablePayRec.paid_at).toLocaleDateString()}
                     </td>
                   </tr>
                 ))}
@@ -95,9 +125,9 @@ function TablePayment({ tablePayments }) {
 
       {showFilter && (
         <Filter
-          data={tablePayments}
-          nameField="customer"
-          dateField="date"
+          data={Payments}
+          nameField="customer_name"
+          dateField="paid_at"
           onApply={setFilteredData}
           onReset={() => setShowFilter(false)}
         />
