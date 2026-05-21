@@ -29,7 +29,7 @@ function AddStaffForm({ close }) {
   const fetchStaffs = async () => {
     try {
       const res = await privateAPI.get("/staff/get-staff");
-      console.log("Staff list refreshed:", res.data.data);
+      console.log("Staff list refreshed:");
     } catch (error) {
       console.error(
         "API Error while fetching staff: ",
