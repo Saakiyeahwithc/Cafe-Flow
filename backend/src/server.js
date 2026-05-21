@@ -25,6 +25,7 @@ const app = express();
 const PORT = process.env.PORT || 5051;
 
 console.log("2 - setting up app...");
+app.set("trust proxy", 1);
 app.use(cookieParser());
 app.use(
   cors({

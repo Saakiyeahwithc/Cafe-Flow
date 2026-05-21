@@ -28,11 +28,7 @@ privateAPI.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        await axios.post(
-          `${BASE_URL}/auth/refresh`,
-          {},
-          { withCredentials: true },
-        );
+        await axios.post(`${BASE_URL}/auth/refresh`, { withCredentials: true });
         return privateAPI(originalRequest);
       } catch {
         return Promise.reject(error); // ← just reject, don't redirect

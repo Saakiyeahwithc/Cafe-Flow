@@ -25,10 +25,16 @@ function LoginScreen() {
 
     try {
       setLoading(true);
-      const res = await publicAPI.post("/auth/login", {
-        email,
-        password,
-      });
+      const res = await publicAPI.post(
+        "/auth/login",
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        },
+      );
       const userData = res.data.data;
       console.log("Login successful:", userData);
 
