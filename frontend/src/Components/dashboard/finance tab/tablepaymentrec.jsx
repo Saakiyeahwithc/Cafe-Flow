@@ -15,7 +15,7 @@ function TablePayment({ tablePayments }) {
 
   const fetchPayments = async () => {
     try {
-      const res = await privateAPI.get("billing/");
+      const res = await privateAPI.get("/billing");
 
       setPayments(res.data.bills);
       setFilteredData(res.data.bills);

@@ -45,13 +45,12 @@ function TableOrderBill({ selectedOrder, close, completeTableOrders }) {
 
   //_______save bill_______
 
-  const saveBill = async () => {
+  const saveBill = async (tableId) => {
     try {
-      await privateAPI.post("billing/", {
-        // note: route is "/" not "/create"
-        bill_type: "TABLE", // required field
-        generated_by_user_id: user.user_id, // required field
-        table_reservation_id: selectedOrder.table_id,
+      await privateAPI.post("/billing", {
+        bill_type: "TABLE",
+        generated_by_user_id: user.user_id,
+        table_reservation_id: tableId,
         payment_method: paymentMethod,
         subtotal,
         food_charges: subtotal,
@@ -245,11 +244,30 @@ function TableOrderBill({ selectedOrder, close, completeTableOrders }) {
 
               <button
                 onClick={async () => {
-                  await saveBill();
-                  completeTableOrders(selectedOrder.orders);
-                  changeTableStatus(selectedOrder.table_id, "Available");
-                  setConfirmPayment(true);
-                  close();
+                  try {
+                    console.log("SELECTED ORDER:", selectedOrder);
+
+                    const tableId =
+                      selectedOrder?.table_id ||
+                      selectedOrder?.tableNumber ||
+                      selectedOrder?.table?.table_id;
+
+                    if (!tableId) {
+                      console.error("No table ID found");
+                      return;
+                    }
+
+                    await saveBill(tableId);
+
+                    await completeTableOrders(selectedOrder.orders);
+
+                    await changeTableStatus(tableId, "Available");
+
+                    setConfirmPayment(false);
+                    close();
+                  } catch (error) {
+                    console.error("Payment confirmation failed:", error);
+                  }
                 }}
                 className="px-4 py-1.5 text-[15px] font-medium bg-green-500 text-white rounded-lg"
               >
