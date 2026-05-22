@@ -29,7 +29,7 @@ function OrderCard({ order, view, changeStatus, openTableBill }) {
             </p>
           </div>
           <div className="text-right">
-            <p className="opacity-90 text-sm">{order.created_at}</p>
+            <p className="opacity-90 text-sm">{order.date}</p>
             <p className="text-sm">{order.guest?.full_name}</p>
           </div>
         </div>
