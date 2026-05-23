@@ -29,14 +29,14 @@ function RoomCard({ rooms, deleteRoom, selectedRoom }) {
                   console.log("Button pressed");
                 }}
                 className={`absolute -top-2.5 -right-2.5 z-10 
-  w-6 h-6 rounded-full bg-gray-700 hover:bg-red-500 text-white
-  transition-opacity shadow-md grid place-items-center
-  ${
-    activeInfo === room.room_id
-      ? "opacity-100 pointer-events-auto" // long-pressed on mobile
-      : "opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto"
-  }
-`}
+                  w-6 h-6 rounded-full bg-gray-700 hover:bg-red-500 text-white
+                  transition-opacity shadow-md grid place-items-center
+                  ${
+                    activeInfo === room.room_id
+                      ? "opacity-100 pointer-events-auto" // long-pressed on mobile
+                      : "opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto"
+                  }
+                      `}
               >
                 <X className="w-3 h-3" />
               </button>
@@ -63,16 +63,16 @@ function RoomCard({ rooms, deleteRoom, selectedRoom }) {
                   clearTimeout(pressTimer.current);
                 }}
                 className={`w-32 h-44 aspect-square select-none rounded-lg flex flex-col items-center 
-            justify-center p-4 hover:scale-103 transition-all shadow-sm
-              ${
-                room.status === "Available"
-                  ? "bg-green-400"
-                  : room.status === "Reserved"
-                    ? "bg-blue-400"
-                    : room.status === "Occupied"
-                      ? "bg-red-400"
-                      : "bg-orange-400"
-              }`}
+                            justify-center p-4 hover:scale-103 transition-all shadow-sm
+                          ${
+                            room.status === "Available"
+                              ? "bg-green-400"
+                              : room.status === "Reserved"
+                                ? "bg-blue-400"
+                                : room.status === "Occupied"
+                                  ? "bg-red-400"
+                                  : "bg-orange-400"
+                          }`}
               >
                 {/* Check-out button */}
                 {room.status === "Occupied" && (
