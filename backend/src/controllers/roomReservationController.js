@@ -131,7 +131,7 @@ export const assignRoom = async (req, res, next) => {
     const { id } = req.params; // room_reservation_id
 
     const reservation = await prisma.roomReservation.findUnique({
-      where: { room_reservation_id: Number(id) },
+      where: { room_id: Number(id) },
       include: { room: true, guest: true },
     });
 
@@ -166,7 +166,7 @@ export const assignRoom = async (req, res, next) => {
 
     const result = await prisma.$transaction(async (tx) => {
       const updatedReservation = await tx.roomReservation.update({
-        where: { room_reservation_id: Number(id) },
+        where: { room_id: Number(id) },
         data: { status: "checked_in" },
         include: { guest: true, room: true },
       });
