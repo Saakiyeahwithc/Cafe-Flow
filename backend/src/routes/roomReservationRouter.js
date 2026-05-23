@@ -16,25 +16,25 @@ const roomReservationRouter = router.Router();
 roomReservationRouter.post(
   "/:id/create",
   authenticateToken,
-  checkRole("admin" || "reception" || "manager"),
+  checkRole("admin", "reception", "manager"),
   createRoomReservation,
 );
 roomReservationRouter.get(
   "/",
   authenticateToken,
-  checkRole("admin" || "reception" || "manager"),
+  checkRole("admin", "reception", "manager"),
   getAllReservations,
 );
 roomReservationRouter.delete(
   "/:id",
   authenticateToken,
-  checkRole("admin" || "reception" || "manager"),
+  checkRole("admin", "reception", "manager"),
   deleteRoomReservation,
 );
 roomReservationRouter.patch(
   "/:id/assign",
   authenticateToken,
-  checkRole("admin" || "reception" || "manager"),
+  checkRole("admin", "reception", "manager"),
   assignRoom,
 );
 export default roomReservationRouter;
