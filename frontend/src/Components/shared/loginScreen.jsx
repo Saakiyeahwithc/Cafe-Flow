@@ -36,7 +36,7 @@ function LoginScreen() {
         },
       );
       const userData = res.data.data;
-      console.log("Login successful:", userData);
+      // console.log("Login successful:", userData);
 
       login({ userData });
 
