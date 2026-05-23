@@ -12,7 +12,10 @@ import {
 } from "../middlewares/auth.Middleware.js";
 
 const roomReservationRouter = express.Router();
-console.log("🔥 ROOM ROUTER HIT:", req.method, req.originalUrl);
+roomReservationRouter.use((req, res, next) => {
+  console.log("🔥 ROOM ROUTER HIT:", req.method, req.originalUrl);
+  next();
+});
 roomReservationRouter.post(
   "/:id/create",
   authenticateToken,
