@@ -99,7 +99,7 @@ function AdminDashboard({ open, setOpen }) {
             <NavLink
               key={item.id}
               onClick={() => setOpen(false)}
-              to={`/admin/${item.id.toLowerCase().trim()}`}
+              to={`/${role}/${item.id.toLowerCase().trim()}`}
               end={item.id === "overview"}
               className={({ isActive }) =>
                 `w-full flex items-center gap-3 p-3 rounded-lg transition ${

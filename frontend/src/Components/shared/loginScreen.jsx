@@ -46,8 +46,10 @@ function LoginScreen() {
 
       const role = userData.role.role_name;
 
-      if (role === "admin" || role === "manager") {
+      if (role === "admin") {
         navigate("/admin");
+      } else if (role === "manager") {
+        navigate("/manager");
       } else if (role === "waiter") {
         navigate("/waiter");
       } else if (role === "reception") {
