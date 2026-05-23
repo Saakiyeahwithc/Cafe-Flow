@@ -27,7 +27,7 @@ function RoomReservations({
   const { assignRoom } = useRooms();
 
   const handleAssign = (reservation) => {
-    assignRoom(reservation.room?.room_number, "Reserved", {
+    assignRoom(reservation.room?.room_reservation_id, "Reserved", {
       name: reservation.guest?.full_name,
       checkInDate: reservation.check_in_date,
       checkInTime: reservation.check_in_time,
