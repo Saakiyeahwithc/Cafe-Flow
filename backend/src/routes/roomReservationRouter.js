@@ -2,6 +2,7 @@ import express from "express";
 import {
   assignRoom,
   getAllReservations,
+  getReservationByRoomId,
   deleteRoomReservation,
   createRoomReservation,
 } from "../controllers/roomReservationController.js";
@@ -28,6 +29,13 @@ roomReservationRouter.get(
   checkRole("admin", "reception", "manager"),
   getAllReservations,
 );
+roomReservationRouter.get(
+  "/:id",
+  authenticateToken,
+  checkRole("admin", "reception", "manager"),
+  getReservationByRoomId,
+);
+
 roomReservationRouter.delete(
   "/:id",
   authenticateToken,
