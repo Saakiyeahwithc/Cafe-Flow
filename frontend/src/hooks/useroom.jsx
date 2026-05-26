@@ -30,10 +30,20 @@ export function useRooms() {
     }
   };
 
-  const changeRoomStatus = async (id, status) => {
+  const changeRoomStatus = async (
+    id,
+    status,
+    customerName,
+    contactNumber,
+    numberOfGuest,
+  ) => {
     try {
       if (status === "Occupied") {
-        await privateAPI.patch(`/rooms/${id}/occupy`);
+        await privateAPI.patch(`/rooms/${id}/occupy`, {
+          guest_name: customerName,
+          phone: contactNumber,
+          guest_count: numberOfGuest,
+        });
       } else {
         await privateAPI.put(`/rooms/${id}/`, { status });
       }

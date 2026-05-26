@@ -27,7 +27,7 @@ function RoomReservations({
   const { assignRoom } = useRooms();
 
   const handleAssign = (reservation) => {
-    assignRoom(reservation.room?.room_reservation_id, "Reserved", {
+    assignRoom(reservation.room_reservation_id, "Reserved", {
       name: reservation.guest?.full_name,
       checkInDate: reservation.check_in_date,
       checkInTime: reservation.check_in_time,
@@ -121,7 +121,16 @@ function RoomReservations({
                   </td>
 
                   <td className="px-6 py-3 text-gray-600 text-sm">
-                    {formatTime(reservation.check_in_time)}
+                    {reservation.check_in_time
+                      ? new Date(reservation.check_in_time).toLocaleTimeString(
+                          [],
+                          {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true,
+                          },
+                        )
+                      : "—"}
                   </td>
 
                   <td className="px-6 py-3 text-gray-600 text-sm">
@@ -141,14 +150,17 @@ function RoomReservations({
                   </td>
 
                   <td className="px-6 py-3 text-gray-600 text-sm">
-                    <button
-                      onClick={() => handleAssign(reservation)}
-                      className="flex items-center justify-center text-blue-500 gap-1
-                        hover:text-blue-700 rounded-4xl"
-                    >
-                      <LogIn className="w-5 h-5" />
-                      Assign
-                    </button>
+                    {reservation.status === "checked_in" ? (
+                      <span className="text-green-600 font-medium">Seated</span>
+                    ) : (
+                      <button
+                        onClick={() => handleAssign(reservation)}
+                        className="flex items-center justify-center text-blue-500 gap-1 hover:text-blue-700 rounded-4xl"
+                      >
+                        <LogIn className="w-5 h-5" />
+                        Assign
+                      </button>
+                    )}
                   </td>
 
                   <td className="px-6 py-3 text-gray-600 text-sm">

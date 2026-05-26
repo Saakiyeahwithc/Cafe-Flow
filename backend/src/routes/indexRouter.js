@@ -11,6 +11,7 @@ import foodOrdersRouter from "./foodOrdersRouter.js";
 import roomReservationRouter from "./roomReservationRouter.js";
 import tableReservationRouter from "./tableReservationRouter.js";
 import inventoryRouter from "./inventoryRouter.js";
+import billingRouter from "./billingRouter.js";
 
 const router = Router();
 
@@ -26,5 +27,6 @@ router.use("/food-orders", foodOrdersRouter);
 router.use("/room-reservations", roomReservationRouter);
 router.use("/table-reservations", tableReservationRouter);
 router.use("/inventory", inventoryRouter);
+router.use("/billing", billingRouter);
 
 export default router;

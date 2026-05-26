@@ -6,6 +6,7 @@ export const createRoomReservation = async (req, res, next) => {
     const { id } = req.params;
     const { guest_name, phone, guest_count, check_in_date, check_in_time } =
       req.body;
+    const checkInDateTime = new Date(`${check_in_date}T${check_in_time}:00`);
 
     if (!guest_name || !check_in_date || !check_in_time || !guest_count) {
       return res.status(400).json({
@@ -47,7 +48,7 @@ export const createRoomReservation = async (req, res, next) => {
         data: {
           guest_count: Number(guest_count),
           check_in_date: new Date(check_in_date),
-          check_in_time,
+          check_in_time: checkInDateTime,
           status: "active",
           type: "reservation",
           guest: { connect: { guest_id: guest.guest_id } },
@@ -95,6 +96,36 @@ export const getAllReservations = async (req, res, next) => {
   }
 };
 
+export const getReservationByRoomId = async (req, res, next) => {
+  try {
+    const { id } = req.params; // room_id
+
+    const reservation = await prisma.roomReservation.findFirst({
+      where: {
+        room_id: Number(id),
+        status: "checked_in",
+      },
+      include: {
+        guest: true,
+        room: true,
+      },
+    });
+
+    if (!reservation) {
+      return res
+        .status(404)
+        .json({ message: "No active reservation found for this room" });
+    }
+
+    return res.status(200).json({
+      message: "Reservation fetched successfully",
+      data: reservation,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const deleteRoomReservation = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -131,7 +162,7 @@ export const assignRoom = async (req, res, next) => {
     const { id } = req.params; // room_reservation_id
 
     const reservation = await prisma.roomReservation.findUnique({
-      where: { room_id: Number(id) },
+      where: { room_reservation_id: Number(id) },
       include: { room: true, guest: true },
     });
 
@@ -166,7 +197,7 @@ export const assignRoom = async (req, res, next) => {
 
     const result = await prisma.$transaction(async (tx) => {
       const updatedReservation = await tx.roomReservation.update({
-        where: { room_id: Number(id) },
+        where: { room_reservation_id: Number(id) },
         data: { status: "checked_in" },
         include: { guest: true, room: true },
       });

@@ -66,78 +66,73 @@ function OrdersView() {
       </div>
 
       {/* Admin controls */}
-      {role === "admin" ||
-        (role === "manager" && (
-          <div>
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-              <div className="bg-white p-4 rounded-lg font-medium shadow-sm">
-                <p className="text-gray-700 text-[17px] mb-1">Pending orders</p>
+      {(role === "admin" || role === "manager") && (
+        <div>
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+            <div className="bg-white p-4 rounded-lg font-medium shadow-sm">
+              <p className="text-gray-700 text-[17px] mb-1">Pending orders</p>
 
-                <p className="text-gray-900 text-[17px]">
-                  {kitchenOrders.length}
-                </p>
-              </div>
-
-              <div className="bg-blue-50 p-4 rounded-lg font-medium shadow-sm">
-                <p className="text-blue-700 text-[17px] mb-1">
-                  Delivered orders
-                </p>
-
-                <p className="text-blue-900 text-[17px]">
-                  {deliveredOrders.length}
-                </p>
-              </div>
-
-              <div className="bg-green-50 p-4 rounded-lg font-medium shadow-sm">
-                <p className="text-green-700 text-[17px] mb-1">
-                  Completed orders
-                </p>
-
-                <p className="text-green-900 text-[17px]">
-                  {completedOrders.length}
-                </p>
-              </div>
-
-              <div className="bg-red-50 p-4 rounded-lg font-medium shadow-sm">
-                <p className="text-red-700 text-[17px] mb-1">
-                  Cancelled orders
-                </p>
-
-                <p className="text-red-900 text-[17px]">
-                  {cancelledOrders.length}
-                </p>
-              </div>
+              <p className="text-gray-900 text-[17px]">
+                {kitchenOrders.length}
+              </p>
             </div>
 
-            {/* View Switch */}
-            <div className="flex items-center gap-5 w-50 md:w-100 mb-6">
-              <button
-                onClick={() => setView("kitchen")}
-                className={`px-8 py-3 rounded-2xl shadow-sm border border-slate-200 text-[15px] md:text-lg font-medium
+            <div className="bg-blue-50 p-4 rounded-lg font-medium shadow-sm">
+              <p className="text-blue-700 text-[17px] mb-1">Delivered orders</p>
+
+              <p className="text-blue-900 text-[17px]">
+                {deliveredOrders.length}
+              </p>
+            </div>
+
+            <div className="bg-green-50 p-4 rounded-lg font-medium shadow-sm">
+              <p className="text-green-700 text-[17px] mb-1">
+                Completed orders
+              </p>
+
+              <p className="text-green-900 text-[17px]">
+                {completedOrders.length}
+              </p>
+            </div>
+
+            <div className="bg-red-50 p-4 rounded-lg font-medium shadow-sm">
+              <p className="text-red-700 text-[17px] mb-1">Cancelled orders</p>
+
+              <p className="text-red-900 text-[17px]">
+                {cancelledOrders.length}
+              </p>
+            </div>
+          </div>
+
+          {/* View Switch */}
+          <div className="flex items-center gap-5 w-50 md:w-100 mb-6">
+            <button
+              onClick={() => setView("kitchen")}
+              className={`px-8 py-3 rounded-2xl shadow-sm border border-slate-200 text-[15px] md:text-lg font-medium
               ${
                 view === "kitchen"
                   ? "bg-blue-100 border-blue-200"
                   : "bg-white hover:bg-gray-200"
               }`}
-              >
-                Kitchen
-              </button>
+            >
+              Kitchen
+            </button>
 
-              <button
-                onClick={() => setView("waiter")}
-                className={`px-8 py-3 rounded-2xl shadow-sm border border-slate-200 text-[15px] md:text-lg font-medium
+            <button
+              onClick={() => setView("waiter")}
+              className={`px-8 py-3 rounded-2xl shadow-sm border border-slate-200 text-[15px] md:text-lg font-medium
               ${
                 view === "waiter"
                   ? "bg-blue-100 border-blue-200"
                   : "bg-white hover:bg-gray-200"
               }`}
-              >
-                Waiter
-              </button>
-            </div>
+            >
+              Waiter
+            </button>
           </div>
-        ))}
+        </div>
+      )}
 
       {/* Kitchen View */}
       {(role === "admin" || role === "manager" || role === "kitchen") &&
